@@ -1,12 +1,25 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/components/TopNavbar.module.css";
 
 const TopNavbar = () => {
+  const navigate = useNavigate();
+
+  const navigatePage = (page) => {
+    navigate(`/${page}`);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
         <div className={styles.logo}>
-          <span>LOGO</span>
+          <span
+            onClick={() => {
+              navigatePage("");
+            }}
+          >
+            LOGO
+          </span>
         </div>
         <div className={styles.menu}>
           <span>도서목록</span>
