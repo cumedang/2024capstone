@@ -1,0 +1,44 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "category": "소설",
+      "title": "미움받을 용기",
+      "description": "일본 철학자 기획자가 펼치는 자기 개발서",
+      "author": "기시미 이치로",
+      "likes": 100
+    },
+    {
+      "id": 2,
+      "category": "자기계발",
+      "title": "Atomic Habits",
+      "description": "Build Good Habits, Break Bad Ones",
+      "author": "James Clear",
+      "likes": 120
+    },
+    {
+      "id": 3,
+      "category": "역사",
+      "title": "삼국지",
+      "description": "한국사 대표적인 소설",
+      "author": "이문열",
+      "likes": 80
+    },
+    {
+      "id": 4,
+      "category": "비즈니스",
+      "title": "Rich Dad Poor Dad",
+      "description": "What the Rich Teach Their Kids About Money That the Poor and Middle Class Do Not!",
+      "author": "Robert T. Kiyosaki",
+      "likes": 150
+    },
+    {
+      "id": 5,
+      "category": "과학",
+      "title": "A Brief History of Time",
+      "description": "From the Big Bang to Black Holes",
+      "author": "Stephen Hawking",
+      "likes": 90
+    }
+  ]
+}
