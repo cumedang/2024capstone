@@ -6,12 +6,51 @@
   z-index: 10000;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 40%);
+  background-color: rgba(0, 0, 0, 60%);
 }
 
 .container {
+  padding: 3.125rem;
   width: 28rem;
   height: 35rem;
   background-color: #fff;
   border-radius: 16px;
+  box-shadow: 1px 1px 6px 3px rgba(0, 0, 0, 0.1);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  margin-bottom: 3.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #5467f5;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.input>input {
+  width: 100%;
+  height: 2.875rem;
+  padding: 0 1rem;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #ccc;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input>input::placeholder {
+  font-size: 0.8rem;
 }
