@@ -4,11 +4,19 @@ import styles from "../styles/components/TopNavbar.module.css";
 const TopNavbar = () => {
   return (
     <div className={styles.container}>
-      <div>LOGO</div>
-      <div>도서목록</div>
-      <div>채팅방</div>
-      <div>로그인</div>
-      <div>회원가입</div>
+      <div className={styles.inner}>
+        <div className={styles.logo}>
+          <span>LOGO</span>
+        </div>
+        <div className={styles.menu}>
+          <span>도서목록</span>
+          <span>채팅방</span>
+        </div>
+        <div className={styles.util}>
+          <button className={styles.signup}>회원가입</button>
+          <button className={styles.login}>로그인</button>
+        </div>
+      </div>
     </div>
   );
 };
