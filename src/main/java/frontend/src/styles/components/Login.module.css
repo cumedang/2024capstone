@@ -1,0 +1,17 @@
+.align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 10000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 40%);
+}
+
+.container {
+  width: 28rem;
+  height: 35rem;
+  background-color: #fff;
+  border-radius: 16px;
+}
