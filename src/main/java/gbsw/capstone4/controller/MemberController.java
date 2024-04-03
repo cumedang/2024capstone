@@ -6,6 +6,7 @@ import gbsw.capstone4.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,12 +19,12 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String loginProcess(LoginDto dto) {
+    public String loginProcess(@RequestBody LoginDto dto) {
         return memberService.LoginService(dto);
     }
 
     @PostMapping("/sign")
-    public String signProvess(SIgnDto dto) {
+    public String signProvess(@RequestBody SIgnDto dto) {
         return memberService.SignService(dto);
     }
 
