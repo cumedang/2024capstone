@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/components/TopNavbar.module.css";
 
-export const TopNavbar = () => {
+const TopNavbar = () => {
   return (
     <div className={styles.container}>
       <div>LOGO</div>
@@ -12,3 +12,5 @@ export const TopNavbar = () => {
     </div>
   );
 };
+
+export default TopNavbar;

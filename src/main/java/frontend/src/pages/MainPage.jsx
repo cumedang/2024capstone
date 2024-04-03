@@ -1,5 +1,5 @@
-import { Main } from "../components/Main";
-import { TopNavbar } from "../components/TopNavbar";
+import Main from "../components/Main";
+import TopNavbar from "../components/TopNavbar";
 
 const MainPage = () => {
   return (
