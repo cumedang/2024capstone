@@ -1,5 +1,5 @@
   .ListContainer{
-    width: 60%;
+    width: 60rem;
     height: 100vh;
     overflow-y: auto;
     margin: 0 auto;
@@ -8,7 +8,7 @@
 
   .searchContainer{
     width: 100%;
-    height: 20%;
+    height: 8rem;
     border: solid 1px black;
     margin-top: 4rem;
     display: flex;
@@ -18,9 +18,8 @@
 
   .search{
     width: 70%;
-    height: 35%;
+    height: 2.5rem;
     margin: 0 auto;
-    border: solid 1px black;
     display: flex;
   }
 
@@ -31,6 +30,11 @@
     display: flex;
     align-items: center;
     padding-left: 1rem;
+    border-radius: 0.2rem;
+  }
+
+  .clickBox:hover{
+    background-color: rgb(241, 240, 240);
   }
 
   .icon{
@@ -40,5 +44,35 @@
   }
 
   .inputText{
-   
+    width: 25rem;
+    margin-left: 0.5rem;
+    border-radius: 0.2rem;
+    padding-left: 1rem;
+  }
+
+  .searchButton{
+    width: 7rem;
+    margin-left: 0.5rem;
+    background-color: black;
+    color: white;
+  }
+
+  .clickListContainer{
+    position: absolute;
+    top: 10rem;
+    width: 10rem;
+    height: 10rem;
+    border: solid 1px black;
+  }
+
+  .clickList{
+    height: 25%;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    background-color: white;
+  }
+
+  .clickList:hover{
+    background-color: rgb(241, 240, 240);
   }
