@@ -9,7 +9,6 @@
   .searchContainer{
     width: 100%;
     height: 8rem;
-    border: solid 1px black;
     margin-top: 4rem;
     display: flex;
     align-items: center;
@@ -75,4 +74,35 @@
 
   .clickList:hover{
     background-color: rgb(241, 240, 240);
+  }
+
+  .listContainer{
+    width: 42rem;
+    height: 31rem;
+    overflow-y: auto;
+    border-top: solid 0.5px rgb(194, 194, 194);
+    margin: 0 auto;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+
+  .imgContainer{
+    margin: 1rem;
+    width: 10rem;
+    height: 10rem;
+    border: solid 1px black;
+  }
+
+  .list{
+    margin: 1rem;
+    width: 30rem;
+    margin-left: 1rem;
+    border-bottom: solid 0.5px gray;
+  }
+
+  .itemContainer{
+    display: flex;
+    border-bottom: solid 0.5px gray;
   }
