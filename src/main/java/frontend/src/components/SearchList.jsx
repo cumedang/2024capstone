@@ -44,6 +44,19 @@ const SearchList = () => {
     };
   }, []);
 
+  const categoryColors = {
+    "총류": "#ff0000",
+    "철학": "#ff9100",
+    "종교": "##fff202",
+    "사회과학": "#00f7ff",
+    "자연과학": "#0f00de",
+    "기술과학": "#8400ff",
+    "예술": "#db7373",
+    "언어": "#df9973",
+    "문학": "#53792d",
+    "역사": "#8cd139"
+  };
+
   return (
     <div>
       <div className={styles.ListContainer}>
@@ -70,13 +83,17 @@ const SearchList = () => {
               <div className={styles.listContainer}>
               <div className={styles.listContainer}>
               {data.map((item, index) => (
-                <div key={index} className={styles.itemContainer}>
+                <div
+                  key={index}
+                  className={styles.itemContainer}
+                >
                   <div className={styles.imgContainer}></div>
                   <div>
                     <div className={styles.list}>
-                      <div>{item.category}</div>
-                      제목: {item.title} 
-                      내용: {item.description}
+                      <div className={styles.tag} style={{ backgroundColor: categoryColors[item.category] }}>{item.category}</div>
+                      <br></br>
+                      <div className={styles.titleText}>{item.title}</div> 
+                      <div className={styles.descriptionText}>{item.description}</div>
                     </div>
                   </div>
                 </div>

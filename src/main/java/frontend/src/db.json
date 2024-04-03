@@ -2,43 +2,27 @@
   "books": [
     {
       "id": 1,
-      "category": "소설",
-      "title": "미움받을 용기",
-      "description": "일본 철학자 기획자가 펼치는 자기 개발서",
-      "author": "기시미 이치로",
-      "likes": 100
+      "category": "철학",
+      "title": "작은 아씨들",
+      "description": "작은 아씨들은 19세기 후반의 미국 메사추세츠주 보스턴을 배경으로 한 소설이다. 네 이웃 누나의 이름은 각각 메그, 조, 베스, 에이미이다.",
+      "author": "루이자 메이 올콧",
+      "likes": 50
     },
     {
       "id": 2,
-      "category": "자기계발",
-      "title": "Atomic Habits",
-      "description": "Build Good Habits, Break Bad Ones",
-      "author": "James Clear",
-      "likes": 120
+      "category": "예술",
+      "title": "해리 포터와 마법사의 돌",
+      "description": "해리 포터는 영국 출신의 11살 소년으로, 고아로 자라며 손목에 번쩍거리는 번개 모양의 상처가 있다. 어느 날 해리는 학용품을 살러 다니던 중 비밀의 방으로 들어가면서 마법에 대해 알게 된다.",
+      "author": "J.K. 롤링",
+      "likes": 30
     },
     {
       "id": 3,
-      "category": "역사",
-      "title": "삼국지",
-      "description": "한국사 대표적인 소설",
-      "author": "이문열",
-      "likes": 80
-    },
-    {
-      "id": 4,
-      "category": "비즈니스",
-      "title": "Rich Dad Poor Dad",
-      "description": "What the Rich Teach Their Kids About Money That the Poor and Middle Class Do Not!",
-      "author": "Robert T. Kiyosaki",
-      "likes": 150
-    },
-    {
-      "id": 5,
-      "category": "과학",
-      "title": "A Brief History of Time",
-      "description": "From the Big Bang to Black Holes",
-      "author": "Stephen Hawking",
-      "likes": 90
+      "category": "자연과학",
+      "title": "우리들의 일그러진 영혼",
+      "description": "우리들의 일그러진 영혼은 존 S. 케인즈에 의해 저술된 과학 서적이다. 인간의 사회적 행동을 심리학과 생물학적 관점에서 분석한다.",
+      "author": "리처드 도킨스",
+      "likes": 45
     }
   ]
 }

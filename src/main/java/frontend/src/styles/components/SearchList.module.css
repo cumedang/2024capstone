@@ -90,14 +90,14 @@
 
   .imgContainer{
     margin: 1rem;
-    width: 10rem;
-    height: 10rem;
+    width: 9rem;
+    height: 11rem;
     border: solid 1px black;
   }
 
   .list{
     margin: 1rem;
-    width: 30rem;
+    width: 25rem;
     margin-left: 1rem;
     border-bottom: solid 0.5px gray;
   }
@@ -105,4 +105,29 @@
   .itemContainer{
     display: flex;
     border-bottom: solid 0.5px gray;
+    height: 13rem;
+  }
+
+  .tag{
+    display: inline-block;
+    min-width: 2.5rem;
+    padding: 0.2rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    border-radius: 3rem;
+    font-size: 0.8rem;
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+    margin-bottom: 0.625rem;
+  }
+
+  .titleText{
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+  }
+
+  .descriptionText{
+    font-size: 0.8rem;
+    height: 4rem;
   }
