@@ -90,14 +90,15 @@
 
   .imgContainer{
     margin: 1rem;
-    width: 9rem;
-    height: 11rem;
+    width: 8.5rem;
+    height: 11.5rem;
     border: solid 1px black;
   }
 
   .list{
     margin: 1rem;
     width: 25rem;
+    height: 9rem;
     margin-left: 1rem;
     border-bottom: solid 0.5px gray;
   }
@@ -105,13 +106,13 @@
   .itemContainer{
     display: flex;
     border-bottom: solid 0.5px gray;
-    height: 13rem;
+    height: 13.5rem;
   }
 
   .tag{
     display: inline-block;
     min-width: 2.5rem;
-    padding: 0.2rem;
+    padding: 0.1rem;
     padding-left: 0.4rem;
     padding-right: 0.4rem;
     border-radius: 3rem;
@@ -119,7 +120,7 @@
     text-align: center;
     color: white;
     font-weight: bolder;
-    margin-bottom: 0.625rem;
+    margin-bottom: 0.5rem;
   }
 
   .titleText{
@@ -130,4 +131,34 @@
   .descriptionText{
     font-size: 0.8rem;
     height: 4rem;
+    color: gray;
+  }
+
+  .Author{
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .AuthorContainer{
+    display: flex;
+    height: 1rem;
+    margin-left: 1rem;
+  }
+
+  .likes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    color: gray;
+  }
+
+  .BookReports{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-left: 2rem;
+    color: gray;
   }
