@@ -61,13 +61,20 @@ const SearchList = () => {
   };
 
   const handleSearch = () => {
+    if (!keyword.trim()) {
+      return;
+    }
     if(title === '제목'){
       axios.get('http://localhost:8000/books')
       .then(res => {
         const results = res.data.filter(book =>
           book.title.toLowerCase().includes(keyword.toLowerCase())
         );
-        setSearchResults(results);
+        if (results.length === 0) {
+          alert('검색된 내용이 없습니다.');
+        } else {
+          setSearchResults(results);
+        }
       })
       .catch(error => {
         console.error('검색 오류:', error);
@@ -79,7 +86,11 @@ const SearchList = () => {
         const results = res.data.filter(book =>
           book.description.toLowerCase().includes(keyword.toLowerCase())
         );
-        setSearchResults(results);
+        if (results.length === 0) {
+          alert('검색된 내용이 없습니다.');
+        } else {
+          setSearchResults(results);
+        }
       })
       .catch(error => {
         console.error('검색 오류:', error);
@@ -91,7 +102,11 @@ const SearchList = () => {
         const results = res.data.filter(book =>
           book.author.toLowerCase().includes(keyword.toLowerCase())
         );
-        setSearchResults(results);
+        if (results.length === 0) {
+          alert('검색된 내용이 없습니다.');
+        } else {
+          setSearchResults(results);
+        }
       })
       .catch(error => {
         console.error('검색 오류:', error);
@@ -103,11 +118,21 @@ const SearchList = () => {
         const results = res.data.filter(book =>
           book.category.toLowerCase().includes(keyword.toLowerCase())
         );
-        setSearchResults(results);
+        if (results.length === 0) {
+          alert('검색된 내용이 없습니다.');
+        } else {
+          setSearchResults(results);
+        }
       })
       .catch(error => {
         console.error('검색 오류:', error);
       });
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
     }
   };
 
@@ -130,7 +155,7 @@ const SearchList = () => {
                   <div className={styles.clickList} onClick={() => handleBoxClick('저자')}>저자</div>
               </div>
             )}
-            <input type="text" className={styles.inputText} value={keyword} onChange={(e) => isKeyword(e.target.value)}></input>
+            <input type="text" className={styles.inputText} value={keyword} onChange={(e) => isKeyword(e.target.value)} onKeyPress={handleKeyPress}></input>
             <button className={styles.searchButton} onClick={handleSearch}>검색</button>
           </div>
         </div>
