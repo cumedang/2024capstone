@@ -38,8 +38,8 @@ const BookReports = () => {
           <textarea className={styles.pTextare}></textarea>
         </div>
         <div className={styles.ButtonContainer}>
-          <button>저장</button>
-          <button>제출</button>
+          <button className={styles.Button}>저장</button>
+          <button className={styles.Button2}>제출</button>
         </div>
       </div>
     </>

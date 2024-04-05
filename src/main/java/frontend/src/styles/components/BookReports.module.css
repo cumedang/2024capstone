@@ -59,6 +59,7 @@
   height: 20rem;
   margin: 0 auto;
   margin-top: 3rem;
+  
 }
 
 .PlotSummaryContiner2{
@@ -70,5 +71,29 @@
 
 .ButtonContainer{
   margin-top: 3rem;
-  margin-left: 40rem;
+  margin-left: 44.3rem;
+}
+
+.Button{
+  width: 4.5rem;
+  height: 2rem;
+  margin: 0.1rem;
+  border: solid blue 1px;
+  background-color: white;
+  color: blue;
+  border-radius: 3px;
+}
+
+.Button2{
+  width: 4.5rem;
+  height: 2rem;
+  margin-left: 0.5rem;
+  background-color: blue;
+  border: none;
+  color: white;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar {
+  width: 0;
 }
