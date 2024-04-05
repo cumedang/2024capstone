@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/components/SearchList.module.css";
 import { SlArrowDown, SlArrowUp } from "react-icons/sl";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -13,6 +14,7 @@ const SearchList = () => {
   const [searchResults, setSearchResults] = useState([]);
   const modalWrapperRef = useRef(null);
   const clickBoxRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`http://localhost:8000/books`)
@@ -136,6 +138,10 @@ const SearchList = () => {
     }
   };
 
+  const handleClickImg = (id) => {
+    navigate(`/search/${id}/BookReports`);
+  }
+
   return (
     <div>
       <div className={styles.ListContainer}>
@@ -166,7 +172,7 @@ const SearchList = () => {
                   key={index}
                   className={styles.itemContainer}
                 >
-                  <div className={styles.imgContainer}></div>
+                  <div className={styles.imgContainer} onClick={() => {handleClickImg([item.id])}}></div>
                   <div>
                     <div className={styles.list}>
                       <div className={styles.tag} style={{ backgroundColor: categoryColors[item.category] }}>{item.category}</div>

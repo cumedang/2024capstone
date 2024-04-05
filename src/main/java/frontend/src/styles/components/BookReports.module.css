@@ -1,0 +1,74 @@
+.Container{
+  width: 60rem;
+  height: 100vh;
+  overflow-y: auto;
+  margin: 0 auto;
+  box-shadow: 0px 0px 10px 0px rgba(165, 165, 165, 0.75);
+}
+
+.titleContainer{
+  width: 80%;
+  height: 12rem;
+  margin: 0 auto;
+  margin-top: 3.75rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title{
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 3rem;
+}
+
+.author{
+  margin-top: 1rem;
+  font-size: 0.825rem;
+}
+
+.img{
+  margin-top: 3rem;
+  height: 85%;
+  width: 8rem;
+  background-color: black;
+}
+
+.PlotSummaryContiner{
+  width: 80%;
+  height: 20rem;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.PlotSummary{
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  color: gray;
+}
+
+.pTextare{
+  margin-top: 0.7rem;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border-radius: 7px;
+}
+
+.PlotSummaryContiner1{
+  width: 80%;
+  height: 20rem;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+
+.PlotSummaryContiner2{
+  width: 80%;
+  height: 5rem;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+
+.ButtonContainer{
+  margin-top: 3rem;
+  margin-left: 40rem;
+}
