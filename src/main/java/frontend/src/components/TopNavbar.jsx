@@ -13,7 +13,7 @@ const TopNavbar = () => {
 
   return (
     <>
-      {loginActive && <Login />}
+      {loginActive && <Login onClose={() => setLoginActive(false)} />}
       <div className={styles.container}>
         <div className={styles.inner}>
           <div className={styles.logo}>
