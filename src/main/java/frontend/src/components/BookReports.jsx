@@ -6,6 +6,11 @@ import axios from "axios";
 const BookReports = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
+  const [borderColor, setBorderColor] = useState('black');
+  const [isFocusedPlotSummary, setIsFocusedPlotSummary] = useState(false);
+  const [isFocusedImpression, setIsFocusedImpression] = useState(false);
+  const [isFocusedMemorable, setIsFocusedMemorable] = useState(false);
+
   const { id } = useParams();
   useEffect(() => {
     axios.get(`http://localhost:8000/books/${id}`)
@@ -14,7 +19,7 @@ const BookReports = () => {
       setAuthor(res.data.author);
     })
   },[])
-  
+
   return(
     <>
       <div className={styles.Container}>
@@ -26,16 +31,28 @@ const BookReports = () => {
           <div className={styles.img}></div>
         </div>
         <div className={styles.PlotSummaryContiner}>
-          <div className={styles.PlotSummary}>줄거리 요약</div>
-          <textarea className={styles.pTextare}></textarea>
+          <div className={styles.PlotSummary} style={{color: isFocusedPlotSummary ? 'blue' : 'black'}}>줄거리 요약</div>
+          <textarea
+            className={styles.pTextare}
+            onFocus={() => setIsFocusedPlotSummary(true)}
+            onBlur={() => setIsFocusedPlotSummary(false)}
+          ></textarea>
         </div>
         <div className={styles.PlotSummaryContiner1}>
-          <div className={styles.PlotSummary}>느낀 점 및 평가</div>
-          <textarea className={styles.pTextare}></textarea>
+          <div className={styles.PlotSummary} style={{color: isFocusedImpression ? 'blue' : 'black'}}>느낀 점 및 평가</div>
+          <textarea
+            className={styles.pTextare}
+            onFocus={() => setIsFocusedImpression(true)}
+            onBlur={() => setIsFocusedImpression(false)}
+          ></textarea>
         </div>
         <div className={styles.PlotSummaryContiner2}>
-          <div className={styles.PlotSummary}>기억에 남는 구절</div>
-          <textarea className={styles.pTextare}></textarea>
+          <div className={styles.PlotSummary} style={{color: isFocusedMemorable ? 'blue' : 'black'}}>기억에 남는 구절</div>
+          <textarea
+            className={styles.pTextare}
+            onFocus={() => setIsFocusedMemorable(true)}
+            onBlur={() => setIsFocusedMemorable(false)}
+          ></textarea>
         </div>
         <div className={styles.ButtonContainer}>
           <button className={styles.Button}>저장</button>
