@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SignReporitory extends JpaRepository<SIgnDto,String> {
+public interface SignReposirtory extends JpaRepository<SIgnDto,String> {
 
 }
