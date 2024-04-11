@@ -10,15 +10,39 @@ const BookReports = () => {
   const [isFocusedPlotSummary, setIsFocusedPlotSummary] = useState(false);
   const [isFocusedImpression, setIsFocusedImpression] = useState(false);
   const [isFocusedMemorable, setIsFocusedMemorable] = useState(false);
+  const [plotSummary, setPlotSummary] = useState("");
+  const [impression, setImpression] = useState("");
+  const [memorableQuote, setMemorableQuote] = useState("");
 
   const { id } = useParams();
+
   useEffect(() => {
     axios.get(`http://localhost:8000/books/${id}`)
     .then(res => {
       setTitle(res.data.title);
       setAuthor(res.data.author);
     })
-  },[])
+  },[]);
+
+  const handleSave = () => {
+    // 저장 버튼 클릭 시 실행될 함수
+  };
+
+  const handleSubmit = () => {
+    axios.post(`http://localhost:8081/create`, {
+      title,
+      author,
+      plotSummary,
+      impression,
+      memorableQuote
+    })
+    .then(res => {
+      console.log("Submitted successfully:", res.data);
+    })
+    .catch(err => {
+      console.error("Submission failed:", err);
+    });
+  };
 
   return(
     <>
@@ -31,32 +55,35 @@ const BookReports = () => {
           <div className={styles.img}></div>
         </div>
         <div className={styles.PlotSummaryContiner}>
-          <div className={styles.PlotSummary} style={{color: isFocusedPlotSummary ? 'blue' : 'black'}}>줄거리 요약</div>
+          <div className={styles.PlotSummary} style={{color: isFocusedPlotSummary ? '#5667f5' : 'black'}}>줄거리 요약</div>
           <textarea
             className={styles.pTextare}
             onFocus={() => setIsFocusedPlotSummary(true)}
             onBlur={() => setIsFocusedPlotSummary(false)}
+            onChange={(e) => setPlotSummary(e.target.value)}
           ></textarea>
         </div>
         <div className={styles.PlotSummaryContiner1}>
-          <div className={styles.PlotSummary} style={{color: isFocusedImpression ? 'blue' : 'black'}}>느낀 점 및 평가</div>
+          <div className={styles.PlotSummary} style={{color: isFocusedImpression ? '#5667f5' : 'black'}}>느낀 점 및 평가</div>
           <textarea
             className={styles.pTextare}
             onFocus={() => setIsFocusedImpression(true)}
             onBlur={() => setIsFocusedImpression(false)}
+            onChange={(e) => setImpression(e.target.value)}
           ></textarea>
         </div>
         <div className={styles.PlotSummaryContiner2}>
-          <div className={styles.PlotSummary} style={{color: isFocusedMemorable ? 'blue' : 'black'}}>기억에 남는 구절</div>
+          <div className={styles.PlotSummary} style={{color: isFocusedMemorable ? '#5667f5' : 'black'}}>기억에 남는 구절</div>
           <textarea
             className={styles.pTextare}
             onFocus={() => setIsFocusedMemorable(true)}
             onBlur={() => setIsFocusedMemorable(false)}
+            onChange={(e) => setMemorableQuote(e.target.value)}
           ></textarea>
         </div>
         <div className={styles.ButtonContainer}>
-          <button className={styles.Button}>저장</button>
-          <button className={styles.Button2}>제출</button>
+          <button className={styles.Button} onClick={handleSave}>저장</button>
+          <button className={styles.Button2} onClick={handleSubmit}>제출</button>
         </div>
       </div>
     </>
