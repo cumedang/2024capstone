@@ -1,0 +1,81 @@
+.container {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 3.75rem;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  padding: 0 10%;
+  gap: 8%;
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logo>span {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #333;
+  cursor: pointer;
+}
+
+.menu {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  gap: 3%;
+  height: 100%;
+}
+
+.menu>span {
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.menu>span:hover {
+  color: #5467f5;
+}
+
+.util {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 4%;
+}
+
+.util>button {
+  width: 5.5rem;
+  height: 2.25rem;
+  border-radius: 32px;
+  border: 1px solid #c0c0c0;
+  font-size: 0.725rem;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.util>button:first-child {
+  background-color: #fff;
+}
+
+.util>button:last-child {
+  background-color: #5467f5;
+  color: #fff;
+}
+
+.util>button:first-child:hover {
+  background-color: #eee;
+}
+
+.util>button:last-child:hover {
+  background-color: #4457e5;
+}
