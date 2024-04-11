@@ -10,7 +10,7 @@
 }
 
 .container {
-  padding: 2.85rem 3.0625rem 3.75rem;
+  padding: 3.25rem 3.0625rem 3.75rem;
   width: 28rem;
   height: auto;
   background-color: #fff;
@@ -28,7 +28,7 @@
 
 .title {
   margin-bottom: 3.25rem;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #5467f5;
 }
@@ -123,6 +123,10 @@
   display: flex;
   align-items: center;
   gap: 0.35rem;
+}
+
+.find>div {
+  cursor: default;
 }
 
 .contour {

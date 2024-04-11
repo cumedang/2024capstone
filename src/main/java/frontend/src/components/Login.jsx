@@ -7,7 +7,7 @@ import styles from "../styles/components/Login.module.css";
 import kakaoImg from "../img/kakao.png";
 import naverImg from "../img/naver.png";
 
-const Login = ({ onClose }) => {
+const Login = ({ onClose, onSignUp }) => {
   const [saveInfo, setSaveInfo] = useState(false);
 
   const toggleSaveInfo = () => {
@@ -41,7 +41,7 @@ const Login = ({ onClose }) => {
           </div>
           <button className={styles.loginBtn}>로그인</button>
           <div className={styles.util}>
-            <span>회원가입</span>
+            <span onClick={onSignUp}>회원가입</span>
             <div className={styles.find}>
               <span>아이디 찾기</span>
               <div>|</div>
