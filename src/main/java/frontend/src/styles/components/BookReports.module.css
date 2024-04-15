@@ -1,4 +1,4 @@
-.container {
+.Container {
   max-width: 60rem;
   width: 100%;
   height: 100vh;
@@ -43,12 +43,12 @@
   background-color: black;
 }
 
-.plotSummaryContiner {
+.PlotSummaryContiner {
   width: 100%;
   height: 20rem;
 }
 
-.plotSummary {
+.PlotSummary {
   margin-left: 1rem;
   font-size: 0.9rem;
   color: gray;
@@ -64,28 +64,28 @@
   padding: 1.2rem;
 }
 
-.buttonContainer {
+.ButtonContainer {
   align-self: flex-end;
   display: flex;
   gap: 0.5rem;
   height: 3rem;
 }
 
-.button,
-.button2 {
+.Button,
+.Button2 {
   width: 4.5rem;
   height: 2rem;
   border-radius: 3px;
   cursor: pointer;
 }
 
-.button {
+.Button {
   border: solid #5467f5 1px;
   background-color: #fff;
   color: #5467f5;
 }
 
-.button2 {
+.Button2 {
   background-color: #5467f5;
   border: none;
   color: #fff;
