@@ -34,44 +34,46 @@ const BookReports = () => {
             </div>
             <div className={styles.img}></div>
           </div>
-          <div className={styles.PlotSummaryContiner}>
-            <div
-              className={styles.PlotSummary}
-              style={{ color: isFocusedPlotSummary ? "blue" : "black" }}
-            >
-              줄거리 요약
+          <div className={styles.alignContainers}>
+            <div className={styles.PlotSummaryContainer}>
+              <div
+                className={styles.PlotSummary}
+                style={{ color: isFocusedPlotSummary ? "blue" : "black" }}
+              >
+                줄거리 요약
+              </div>
+              <textarea
+                className={styles.pTextare}
+                onFocus={() => setIsFocusedPlotSummary(true)}
+                onBlur={() => setIsFocusedPlotSummary(false)}
+              ></textarea>
             </div>
-            <textarea
-              className={styles.pTextare}
-              onFocus={() => setIsFocusedPlotSummary(true)}
-              onBlur={() => setIsFocusedPlotSummary(false)}
-            ></textarea>
-          </div>
-          <div className={styles.PlotSummaryContiner1}>
-            <div
-              className={styles.PlotSummary}
-              style={{ color: isFocusedImpression ? "blue" : "black" }}
-            >
-              느낀 점 및 평가
+            <div className={styles.PlotSummaryContainer}>
+              <div
+                className={styles.PlotSummary}
+                style={{ color: isFocusedImpression ? "blue" : "black" }}
+              >
+                느낀 점 및 평가
+              </div>
+              <textarea
+                className={styles.pTextare}
+                onFocus={() => setIsFocusedImpression(true)}
+                onBlur={() => setIsFocusedImpression(false)}
+              ></textarea>
             </div>
-            <textarea
-              className={styles.pTextare}
-              onFocus={() => setIsFocusedImpression(true)}
-              onBlur={() => setIsFocusedImpression(false)}
-            ></textarea>
-          </div>
-          <div className={styles.PlotSummaryContiner2}>
-            <div
-              className={styles.PlotSummary}
-              style={{ color: isFocusedMemorable ? "blue" : "black" }}
-            >
-              기억에 남는 구절
+            <div className={styles.PlotSummaryContainer}>
+              <div
+                className={styles.PlotSummary}
+                style={{ color: isFocusedMemorable ? "blue" : "black" }}
+              >
+                기억에 남는 구절
+              </div>
+              <textarea
+                className={styles.pTextare}
+                onFocus={() => setIsFocusedMemorable(true)}
+                onBlur={() => setIsFocusedMemorable(false)}
+              ></textarea>
             </div>
-            <textarea
-              className={styles.pTextare}
-              onFocus={() => setIsFocusedMemorable(true)}
-              onBlur={() => setIsFocusedMemorable(false)}
-            ></textarea>
           </div>
           <div className={styles.ButtonContainer}>
             <button className={styles.Button}>저장</button>
