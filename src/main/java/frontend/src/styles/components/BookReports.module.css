@@ -1,110 +1,96 @@
-.Container{
-  width: 60rem;
+.container {
+  max-width: 60rem;
+  width: 100%;
   height: 100vh;
   overflow-y: auto;
   margin: 0 auto;
   box-shadow: 0px 0px 10px 0px rgba(165, 165, 165, 0.75);
 }
 
-.titleContainer{
+.container::-webkit-scrollbar {
+  width: 0;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin: 6.75rem auto 1.5rem;
   width: 80%;
-  height: 12rem;
-  margin: 0 auto;
-  margin-top: 3.75rem;
+  height: 100%;
+}
+
+.titleContainer {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  height: 10.2rem;
 }
 
-.title{
+.title {
   font-size: 1.4rem;
   font-weight: bold;
-  margin-top: 3rem;
 }
 
-.author{
+.author {
   margin-top: 1rem;
   font-size: 0.825rem;
 }
 
-.img{
-  margin-top: 3rem;
-  height: 85%;
+.img {
+  height: 100%;
   width: 8rem;
   background-color: black;
 }
 
-.PlotSummaryContiner{
-  width: 80%;
+.plotSummaryContiner {
+  width: 100%;
   height: 20rem;
-  margin: 0 auto;
-  margin-top: 1rem;
 }
 
-.PlotSummary{
+.plotSummary {
   margin-left: 1rem;
   font-size: 0.9rem;
   color: gray;
   transition: color 0.2s ease;
 }
 
-.pTextare{
+.pTextare {
   margin-top: 0.7rem;
   width: 100%;
   height: 100%;
   resize: none;
   border-radius: 7px;
   padding: 1.2rem;
-  cursor: pointer;
 }
 
-.PlotSummaryContiner1{
-  width: 80%;
-  height: 20rem;
-  margin: 0 auto;
-  margin-top: 3rem;
-
-}
-
-.PlotSummaryContiner2{
-  width: 80%;
-  height: 5rem;
-  margin: 0 auto;
-  margin-top: 3rem;
-}
-
-.ButtonContainer{
-  margin-top: 3rem;
-  margin-left: 44.3rem;
+.buttonContainer {
+  align-self: flex-end;
+  display: flex;
+  gap: 0.5rem;
   height: 3rem;
 }
 
-.Button{
+.button,
+.button2 {
   width: 4.5rem;
   height: 2rem;
-  margin: 0.1rem;
-  border: solid blue 1px;
-  background-color: white;
-  color: blue;
   border-radius: 3px;
+  cursor: pointer;
 }
 
-.Button2{
-  width: 4.5rem;
-  height: 2rem;
-  margin-left: 0.5rem;
-  background-color: blue;
+.button {
+  border: solid #5467f5 1px;
+  background-color: #fff;
+  color: #5467f5;
+}
+
+.button2 {
+  background-color: #5467f5;
   border: none;
-  color: white;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar {
-  width: 0;
+  color: #fff;
 }
 
 textarea:focus {
-  outline: 1px solid blue;
+  outline: 1px solid #5467f5;
 }
-
-
-

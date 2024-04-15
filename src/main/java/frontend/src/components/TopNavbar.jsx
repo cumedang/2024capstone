@@ -33,7 +33,7 @@ const TopNavbar = () => {
                 navigatePage("");
               }}
             >
-              LOGO
+              READNET
             </span>
           </div>
           <div className={styles.menu}>
