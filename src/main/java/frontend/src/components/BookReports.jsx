@@ -1,7 +1,7 @@
 import styles from "../styles/components/BookReports.module.css";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const BookReports = () => {
   const [title, setTitle] = useState("");
@@ -25,7 +25,13 @@ const BookReports = () => {
   },[]);
 
   const handleSave = () => {
-    // 저장 버튼 클릭 시 실행될 함수
+    axios.post(`http://localhost:8081/save`, {
+      title,
+      author,
+      plotSummary,
+      impression,
+      memorableQuote
+    })
   };
 
   const handleSubmit = () => {
