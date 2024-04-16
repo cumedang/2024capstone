@@ -94,6 +94,7 @@
   width: 6rem;
   height: 2.5rem;
   border-radius: 3px;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all .1s ease;
 }
@@ -102,6 +103,7 @@
   border: 1px solid #5467f5;
   background-color: #fff;
   color: #5467f5;
+  font-weight: 500;
 }
 
 .Button:hover {
