@@ -4,11 +4,13 @@ import {
   IoIosCheckmarkCircleOutline,
 } from "react-icons/io";
 import styles from "../styles/components/SignUp.module.css";
+import axios from "axios";
 
 const SignUp = ({ onClose }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const [idValid, setIdValid] = useState({
     lengthValid: false,
@@ -20,7 +22,7 @@ const SignUp = ({ onClose }) => {
     hasSymbols: false,
   });
   const [passwordMatch, setPasswordMatch] = useState(false);
-
+  const [checkEmail, setCheckEmail] = useState(false);
   const [allValid, setAllValid] = useState(false);
 
   const handleIdChange = (e) => {
@@ -47,6 +49,12 @@ const SignUp = ({ onClose }) => {
     const { value } = e.target;
     setConfirmPassword(value);
     setPasswordMatch(value === password);
+  };
+
+  const checkMail = (email) => {
+    setCheckEmail(true);
+    // axios.post(``, { email });
+    alert("인증번호 발송 완료");
   };
 
   const isIdValid = idValid.lengthValid && idValid.conditionValid;
@@ -99,7 +107,21 @@ const SignUp = ({ onClose }) => {
                   ></input>
                 </div>
               </div>
-              <input placeholder="이메일 인증"></input>
+              <div className={styles.verifyEmail}>
+                <input
+                  placeholder="이메일"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                ></input>
+                <button onClick={() => checkMail(email)} disabled={!email}>
+                  인증번호 발송
+                </button>
+              </div>
+              {checkEmail && (
+                <div className={styles.verifyEmail}>
+                  <input placeholder="인증번호"></input>
+                </div>
+              )}
             </div>
             <div className={styles.vaildCheckContainer}>
               <div className={styles.validCheck}>
