@@ -7,15 +7,15 @@
   box-shadow: 0px 0px 10px 0px rgba(165, 165, 165, 0.75);
 }
 
-.Container::-webkit-scrollbar {
-  width: 0;
+::-webkit-scrollbar {
+  display: none;
 }
 
 .inner {
   display: flex;
   flex-direction: column;
   gap: 4rem;
-  margin: 6.75rem auto 1.5rem;
+  margin: 6.75rem auto 2rem;
   width: 80%;
   height: auto;
 }
@@ -40,7 +40,8 @@
 .img {
   height: 100%;
   width: 8rem;
-  background-color: black;
+  border: 1px solid #000;
+  background-color: #fff;
 }
 
 .alignContainers {
@@ -61,38 +62,50 @@
 .PlotSummary {
   margin-left: 1rem;
   font-size: 0.9rem;
-  color: gray;
+  color: #808080;
   transition: color 0.2s ease;
 }
 
-.pTextare {
+.pTextarea {
   margin-top: 0.7rem;
   width: 100%;
   height: 100%;
   resize: none;
   border-radius: 7px;
   padding: 1.2rem;
+  border: 1px solid #808080;
+}
+
+.pTextarea:focus {
+  outline-color: #5467f5;
 }
 
 .ButtonContainer {
   align-self: flex-end;
   display: flex;
-  gap: 0.5rem;
-  height: 3rem;
+  gap: 0.625rem;
+  height: auto;
+  margin-top: 1rem;
+  transition: all .1s ease;
 }
 
 .Button,
 .Button2 {
-  width: 4.5rem;
-  height: 2rem;
+  width: 6rem;
+  height: 2.5rem;
   border-radius: 3px;
   cursor: pointer;
+  transition: all .1s ease;
 }
 
 .Button {
-  border: solid #5467f5 1px;
+  border: 1px solid #5467f5;
   background-color: #fff;
   color: #5467f5;
+}
+
+.Button:hover {
+  background-color: #eee;
 }
 
 .Button2 {
@@ -101,6 +114,6 @@
   color: #fff;
 }
 
-textarea:focus {
-  outline: 1px solid #5467f5;
+.Button2:hover {
+  background-color: #4457e5;
 }

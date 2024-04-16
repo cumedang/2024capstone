@@ -1,5 +1,6 @@
   .ListContainer {
-    width: 60rem;
+    width: 100%;
+    max-width: 60rem;
     height: 100vh;
     overflow-y: auto;
     margin: 0 auto;
@@ -16,8 +17,8 @@
   }
 
   .search {
-    width: 70%;
-    height: 2.625rem;
+    width: 40rem;
+    height: 2.75rem;
     margin: 0 auto;
     display: flex;
     gap: 0.5rem;
@@ -52,6 +53,7 @@
     border-radius: 0.2rem;
     padding-left: 1rem;
     border: 1px solid #c0c0c0;
+    outline-color: #555;
   }
 
   .searchButton {
@@ -66,7 +68,17 @@
     border: none;
     font-size: 0.9rem;
     font-weight: 500;
-    cursor: pointer
+    cursor: pointer;
+    transition: all .1s ease;
+  }
+
+  .searchButton:hover {
+    background-color: #3f3f3f;
+  }
+
+  .searchButton:disabled {
+    background-color: #c0c0c0;
+    pointer-events: none;
   }
 
   .clickListContainer {

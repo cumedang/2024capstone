@@ -6,7 +6,6 @@ import axios, { AxiosError } from "axios";
 const BookReports = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [borderColor, setBorderColor] = useState("black");
   const [isFocusedPlotSummary, setIsFocusedPlotSummary] = useState(false);
   const [isFocusedImpression, setIsFocusedImpression] = useState(false);
   const [isFocusedMemorable, setIsFocusedMemorable] = useState(false);
@@ -38,12 +37,12 @@ const BookReports = () => {
             <div className={styles.PlotSummaryContainer}>
               <div
                 className={styles.PlotSummary}
-                style={{ color: isFocusedPlotSummary ? "blue" : "black" }}
+                style={{ color: isFocusedPlotSummary ? "#5467f5" : "" }}
               >
                 줄거리 요약
               </div>
               <textarea
-                className={styles.pTextare}
+                className={styles.pTextarea}
                 onFocus={() => setIsFocusedPlotSummary(true)}
                 onBlur={() => setIsFocusedPlotSummary(false)}
               ></textarea>
@@ -51,12 +50,12 @@ const BookReports = () => {
             <div className={styles.PlotSummaryContainer}>
               <div
                 className={styles.PlotSummary}
-                style={{ color: isFocusedImpression ? "blue" : "black" }}
+                style={{ color: isFocusedImpression ? "#5467f5" : "" }}
               >
                 느낀 점 및 평가
               </div>
               <textarea
-                className={styles.pTextare}
+                className={styles.pTextarea}
                 onFocus={() => setIsFocusedImpression(true)}
                 onBlur={() => setIsFocusedImpression(false)}
               ></textarea>
@@ -64,12 +63,12 @@ const BookReports = () => {
             <div className={styles.PlotSummaryContainer}>
               <div
                 className={styles.PlotSummary}
-                style={{ color: isFocusedMemorable ? "blue" : "black" }}
+                style={{ color: isFocusedMemorable ? "#5467f5" : "" }}
               >
                 기억에 남는 구절
               </div>
               <textarea
-                className={styles.pTextare}
+                className={styles.pTextarea}
                 onFocus={() => setIsFocusedMemorable(true)}
                 onBlur={() => setIsFocusedMemorable(false)}
               ></textarea>

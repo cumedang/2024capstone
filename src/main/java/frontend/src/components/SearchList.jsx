@@ -192,7 +192,11 @@ const SearchList = () => {
               onChange={(e) => isKeyword(e.target.value)}
               onKeyPress={handleKeyPress}
             ></input>
-            <button className={styles.searchButton} onClick={handleSearch}>
+            <button
+              className={styles.searchButton}
+              onClick={handleSearch}
+              disabled={!keyword}
+            >
               검색
             </button>
           </div>
