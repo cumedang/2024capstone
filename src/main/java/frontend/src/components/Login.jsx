@@ -16,23 +16,23 @@ const Login = ({ onClose, onSignUp }) => {
   const submit = (e) => {
     e.preventDefault();
 
-    axios
-      .post(``, {
-        id: id,
-        password: pw,
-      })
-      .then((res) => {
-        if (res.data.success) {
-          console.log("로그인 성공");
-          alert("로그인 성공");
-        } else {
-          alert(res.data.message);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("로그인 실패");
-      });
+    // axios
+    //   .post(``, {
+    //     id: id,
+    //     password: pw,
+    //   })
+    //   .then((res) => {
+    //     if (res.data.success) {
+    //       console.log("로그인 성공");
+    //       alert("로그인 성공");
+    //     } else {
+    //       alert(res.data.message);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     alert("로그인 실패");
+    //   });
   };
 
   const toggleSaveInfo = () => {
