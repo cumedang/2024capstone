@@ -44,7 +44,12 @@ const TopNavbar = () => {
             >
               도서목록
             </span>
-            <span>채팅방</span>
+            <span
+            onClick={() => {
+              navigatePage("chatrooms");
+            }}
+            >
+              채팅방</span>
           </div>
           <div className={styles.util}>
             <button
