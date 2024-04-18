@@ -1,110 +1,121 @@
-.Container{
-  width: 60rem;
+.Container {
+  max-width: 60rem;
+  width: 100%;
   height: 100vh;
   overflow-y: auto;
   margin: 0 auto;
   box-shadow: 0px 0px 10px 0px rgba(165, 165, 165, 0.75);
 }
 
-.titleContainer{
+::-webkit-scrollbar {
+  display: none;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin: 6.75rem auto 2rem;
   width: 80%;
-  height: 12rem;
-  margin: 0 auto;
-  margin-top: 3.75rem;
+  height: auto;
+}
+
+.titleContainer {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  height: 10.2rem;
 }
 
-.title{
+.title {
   font-size: 1.4rem;
   font-weight: bold;
-  margin-top: 3rem;
 }
 
-.author{
+.author {
   margin-top: 1rem;
   font-size: 0.825rem;
 }
 
-.img{
-  margin-top: 3rem;
-  height: 85%;
+.img {
+  height: 100%;
   width: 8rem;
-  background-color: black;
+  border: 1px solid #000;
+  background-color: #fff;
 }
 
-.PlotSummaryContiner{
-  width: 80%;
-  height: 20rem;
-  margin: 0 auto;
-  margin-top: 1rem;
+.alignContainers {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 }
 
-.PlotSummary{
+.PlotSummaryContainer {
+  width: 100%;
+  height: 15rem;
+}
+
+.PlotSummaryContainer:last-child {
+  height: 8rem;
+}
+
+.PlotSummary {
   margin-left: 1rem;
   font-size: 0.9rem;
-  color: gray;
+  color: #808080;
   transition: color 0.2s ease;
 }
 
-.pTextare{
+.pTextarea {
   margin-top: 0.7rem;
   width: 100%;
   height: 100%;
   resize: none;
   border-radius: 7px;
   padding: 1.2rem;
+  border: 1px solid #808080;
+}
+
+.pTextarea:focus {
+  outline-color: #5467f5;
+}
+
+.ButtonContainer {
+  align-self: flex-end;
+  display: flex;
+  gap: 0.625rem;
+  height: auto;
+  margin-top: 1rem;
+  transition: all .1s ease;
+}
+
+.Button,
+.Button2 {
+  width: 6rem;
+  height: 2.5rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
   cursor: pointer;
+  transition: all .1s ease;
 }
 
-.PlotSummaryContiner1{
-  width: 80%;
-  height: 20rem;
-  margin: 0 auto;
-  margin-top: 3rem;
-
+.Button {
+  border: 1px solid #5467f5;
+  background-color: #fff;
+  color: #5467f5;
+  font-weight: 500;
 }
 
-.PlotSummaryContiner2{
-  width: 80%;
-  height: 5rem;
-  margin: 0 auto;
-  margin-top: 3rem;
+.Button:hover {
+  background-color: #eee;
 }
 
-.ButtonContainer{
-  margin-top: 3rem;
-  margin-left: 44.3rem;
-  height: 3rem;
-}
-
-.Button{
-  width: 4.5rem;
-  height: 2rem;
-  margin: 0.1rem;
-  border: solid blue 1px;
-  background-color: white;
-  color: blue;
-  border-radius: 3px;
-}
-
-.Button2{
-  width: 4.5rem;
-  height: 2rem;
-  margin-left: 0.5rem;
-  background-color: blue;
+.Button2 {
+  background-color: #5467f5;
   border: none;
-  color: white;
-  border-radius: 3px;
+  color: #fff;
 }
 
-::-webkit-scrollbar {
-  width: 0;
+.Button2:hover {
+  background-color: #4457e5;
 }
-
-textarea:focus {
-  outline: 1px solid blue;
-}
-
-
-
