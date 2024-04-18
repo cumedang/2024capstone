@@ -9,7 +9,7 @@ import naverImg from "../img/naver.png";
 
 const Login = ({ onClose, onSignUp }) => {
   const [saveInfo, setSaveInfo] = useState(false);
-
+  
   const toggleSaveInfo = () => {
     setSaveInfo(!saveInfo);
   };
@@ -21,6 +21,7 @@ const Login = ({ onClose, onSignUp }) => {
   const handleModalClick = (e) => {
     e.stopPropagation();
   };
+
 
   return (
     <div className={styles.align} onClick={handleClose}>
