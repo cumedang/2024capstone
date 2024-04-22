@@ -12,7 +12,6 @@ const BookReports = () => {
   const [plotSummary, setPlotSummary] = useState("");
   const [impression, setImpression] = useState("");
   const [memorableQuote, setMemorableQuote] = useState("");
-
   const { id } = useParams();
 
   useEffect(() => {
