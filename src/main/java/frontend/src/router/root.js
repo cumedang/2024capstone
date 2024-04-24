@@ -6,6 +6,7 @@ const Main = lazy(() => import("../pages/MainPage"));
 const Search = lazy(() => import("../pages/SearchPage"))
 const BookReports = lazy(() => import("../pages/BookReportsPage"))
 const ChatRooms = lazy(() => import("../pages/ChatPage"))
+const ReadTheBook = lazy(() => import("../pages/ReadPage"))
 
 const root = createBrowserRouter([
   {
@@ -37,6 +38,14 @@ const root = createBrowserRouter([
     element: (
       <Suspense fallback={Loading}>
         <ChatRooms />
+      </Suspense>
+    ),
+  },
+  {
+    path: `/Read/:id`,
+    element: (
+      <Suspense fallback={Loading}>
+        <ReadTheBook />
       </Suspense>
     ),
   }

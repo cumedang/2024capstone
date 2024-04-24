@@ -139,7 +139,7 @@ const SearchList = () => {
   };
 
   const handleClickImg = (id) => {
-    navigate(`/search/${id}/BookReports`);
+    navigate(`/read/${id}`);
   };
 
   return (
@@ -204,13 +204,12 @@ const SearchList = () => {
         <div className={styles.listContainer}>
           <div className={styles.listContainer}>
             {searchResults.map((item, index) => (
-              <div key={index} className={styles.itemContainer}>
-                <div
-                  className={styles.imgContainer}
-                  onClick={() => {
-                    handleClickImg([item.id]);
-                  }}
-                ></div>
+              <div key={index} className={styles.itemContainer}
+              onClick={() => {
+                handleClickImg([item.id]);
+              }}
+              >
+                <div className={styles.imgContainer}></div>
                 <div className={styles.infoContainer}>
                   <div className={styles.list}>
                     <div
