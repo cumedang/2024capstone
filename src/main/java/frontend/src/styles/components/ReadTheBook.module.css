@@ -138,7 +138,7 @@
 }
 
 .Num{
-  margin-left: 1.5rem;
+  margin-left: 0.5rem;
   font-size: 18px;
   font-weight: 500;
 }
@@ -151,6 +151,7 @@
   width: 10rem;
   height: 3.125rem;
   border-radius: 7px;
+  margin-right: 0.3rem;
 }
 
 .Write:hover{
@@ -188,5 +189,67 @@
 }
 
 .WriterContainer{
+  width: 100%;
+  height: 11rem;
+  border-bottom: #C0C0C0 1px solid;
+}
 
+.ReportWriter{
+  margin-left: 1.8rem;
+  margin-top: 1.8rem;
+}
+
+.likesContainer{
+  margin-right: 1.8rem;
+  margin-top: 1.8rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.ReportDescription{
+  width: 36.4rem;
+  margin: 0 auto;
+  font-size: 13px;
+  margin-top: 1.8rem;
+}
+
+.likesicon1{
+  color: #5467F5;
+  margin-right: 0.6rem;
+}
+
+.likesicon{
+  color: #5467F5;
+  margin-right: 0.1rem;
+}
+
+.inputText{
+  width: 11rem;
+  height: 2.5rem;
+  padding-left: 1rem;
+  border-radius: 3px;
+  border: solid #C0C0C0 1px;
+  transition: outline-color 0.25s ease;
+}
+
+.inputText:focus{
+  outline-color: #5467f5;
+}
+
+.searchButton{
+  width: 5rem;
+  height: 2.5rem;
+  margin-left: 0.3rem;
+  border-radius: 3px;
+  background-color: rgb(205, 205, 205);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.inputText:not(:placeholder-shown) + .searchButton {
+  background-color: #5467f5;
+  color: white; 
+  cursor: pointer;
 }

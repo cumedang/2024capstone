@@ -1,5 +1,5 @@
 import styles from "../styles/components/ReadTheBook.module.css"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BsChatFill } from "react-icons/bs";
@@ -8,11 +8,20 @@ import { BiSolidPencil } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 
 const ReadTheBook = () => {
+  const clickBoxRef = useRef(null);
+  const [swowReport, setSwowReport] = useState(true)
+  const [swowReport1, setSwowReport1] = useState(false)
   const { id } = useParams();
   const [results, setResults] = useState([]);
   const [report, setReport] = useState([]);
   const [num, setNum] = useState([]);
   const navigate = useNavigate();
+  const [click, setClick] = useState(false);
+  const [title, setTitle] = useState("제목");
+  const [keyword, isKeyword] = useState("");
+  const [data, setData] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const modalWrapperRef = useRef(null);
   const categoryColors = {
     총류: "#ff0000",
     철학: "#ff9100",
@@ -24,6 +33,37 @@ const ReadTheBook = () => {
     언어: "#df9973",
     문학: "#53792d",
     역사: "#8cd139",
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  const handleSearch = () => {
+    setSwowReport(false);
+    setSwowReport1(true)
+    if (!keyword.trim()) {
+      return;
+    }
+    if (title === "제목") {
+      axios
+        .get("http://localhost:8000/BookReports")
+        .then((res) => {
+          const results = res.data.filter((book) =>
+            book.Writer.toLowerCase().includes(keyword.toLowerCase())
+          );
+          if (results.length === 0) {
+            alert("검색된 내용이 없습니다.");
+          } else {
+            setSearchResults(results);
+          }
+        })
+        .catch((error) => {
+          console.error("검색 오류:", error);
+        });
+    } 
   };
 
   useEffect(() => {
@@ -87,22 +127,58 @@ const ReadTheBook = () => {
         </div>
         <div className={styles.ReportContainer}>
           <div className={styles.Report}>
-            <div className={styles.Num}>독후감 {num}개</div>
+            <div className={styles.Num}>
+            <input
+              type="text"
+              className={styles.inputText}
+              value={keyword}
+              onChange={(e) => isKeyword(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder={`독후감 ${num}개`}
+            ></input>
+            <button
+              className={styles.searchButton}
+              onClick={handleSearch}
+              disabled={!keyword}
+            >
+              검색
+            </button>
+            </div>
             <div className={styles.WriteContainer}><div className={styles.Write} onClick={() => {BookReport(id)}}>독후감 작성하기 <div className={styles.ReportIcon}><BiSolidPencil /></div></div></div>
           </div>
           <div className={styles.ReviewContainer}>
-                {report.map(report => (
-                  <div className={styles.WriterContainer}>
-                    <div className={styles.flexContainer}>
-                      <div key={report.id}>{report.Writer}</div>
-                      <div style={{ display: 'flex'}}>
-                        <div><AiOutlineLike /></div>
-                        <div key={report.id}>{report.likes}</div>
-                      </div>
-                    </div>
-                    <div key={report.id}>{report.description}</div>
-                  </div>
-                ))}
+          {swowReport && report.map(report => (
+            <div className={styles.WriterContainer} key={report.id}>
+              <div className={styles.flexContainer}>
+                <div className={styles.ReportWriter}>{report.Writer}</div>
+                <div className={styles.likesContainer}>
+                  <AiOutlineLike className={styles.likesicon}/>
+                  <div className={styles.likesicon1}>{report.likes}</div>
+                </div>
+              </div>
+              <div className={styles.ReportDescription}>
+                {report && report.description && report.description.length > 172 
+                  ? report.description.slice(0, 172) + "..." 
+                  : (report && report.description) || "안떠용"}
+              </div>
+            </div>
+          ))}
+          {swowReport1 && searchResults.map(report => (
+            <div className={styles.WriterContainer} key={report.id}>
+              <div className={styles.flexContainer}>
+                <div className={styles.ReportWriter}>{report.Writer}</div>
+                <div className={styles.likesContainer}>
+                  <AiOutlineLike className={styles.likesicon}/>
+                  <div className={styles.likesicon1}>{report.likes}</div>
+                </div>
+              </div>
+              <div className={styles.ReportDescription}>
+                {report && report.description && report.description.length > 172 
+                  ? report.description.slice(0, 172) + "..." 
+                  : (report && report.description) || "안떠용"}
+              </div>
+            </div>
+          ))}
             <div></div>
           </div>
         </div>
