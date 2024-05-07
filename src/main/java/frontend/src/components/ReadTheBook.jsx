@@ -22,6 +22,10 @@ const ReadTheBook = () => {
   const [data, setData] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const modalWrapperRef = useRef(null);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalPages, setTotalPages] = useState(0);
+
   const categoryColors = {
     총류: "#ff0000",
     철학: "#ff9100",
@@ -66,6 +70,8 @@ const ReadTheBook = () => {
     } 
   };
 
+  
+
   useEffect(() => {
     axios.get(`http://localhost:8000/books/${id}`)
         .then((res) => {
@@ -77,7 +83,7 @@ const ReadTheBook = () => {
   },[])
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/BookReports`)
+    axios.get(`http://localhost:8000/BookReports/`)
         .then((res) => {
           setNum(res.data.length);
           setReport(res.data);
@@ -86,6 +92,10 @@ const ReadTheBook = () => {
           console.error("검색 오류:", error);
         });
   },[])
+
+  const filteredReports = report.filter((item) => item.bookId === id);
+
+
 
   const BookReport = (id) => {
     navigate(`/search/${id}/BookReports`);
@@ -147,7 +157,7 @@ const ReadTheBook = () => {
             <div className={styles.WriteContainer}><div className={styles.Write} onClick={() => {BookReport(id)}}>독후감 작성하기 <div className={styles.ReportIcon}><BiSolidPencil /></div></div></div>
           </div>
           <div className={styles.ReviewContainer}>
-          {swowReport && report.map(report => (
+          {swowReport && filteredReports.map(report => (
             <div className={styles.WriterContainer} key={report.id}>
               <div className={styles.flexContainer}>
                 <div className={styles.ReportWriter}>{report.Writer}</div>

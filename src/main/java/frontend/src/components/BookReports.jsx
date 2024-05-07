@@ -1,5 +1,6 @@
 import styles from "../styles/components/BookReports.module.css";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
 
@@ -9,9 +10,11 @@ const BookReports = () => {
   const [isFocusedPlotSummary, setIsFocusedPlotSummary] = useState(false);
   const [isFocusedImpression, setIsFocusedImpression] = useState(false);
   const [isFocusedMemorable, setIsFocusedMemorable] = useState(false);
-  const [plotSummary, setPlotSummary] = useState("");
-  const [impression, setImpression] = useState("");
-  const [memorableQuote, setMemorableQuote] = useState("");
+  const [plotSummaryInput, setPlotSummaryInput] = useState("");
+  const [impressionInput, setImpressionInput] = useState("");
+  const [memorableQuoteInput, setMemorableQuoteInput] = useState("");
+  const navigate = useNavigate();
+  
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,6 +23,21 @@ const BookReports = () => {
       setAuthor(res.data.author);
     });
   }, []);
+
+  const Submit = () => {
+    const report = {
+      id: Date.now(),
+      bookId: id,
+      Writer: "사용자", 
+      likes: 0,
+      description: plotSummaryInput,
+      Reviews: impressionInput,
+      Paragraph: memorableQuoteInput
+    };
+
+    axios.post(`http://localhost:8000/BookReports`, report)
+    navigate(`/read/${id}`)
+  }
 
   return (
     <>
@@ -42,6 +60,7 @@ const BookReports = () => {
               </div>
               <textarea
                 className={styles.pTextarea}
+                onChange={(e) => setPlotSummaryInput(e.target.value)}
                 onFocus={() => setIsFocusedPlotSummary(true)}
                 onBlur={() => setIsFocusedPlotSummary(false)}
               ></textarea>
@@ -55,6 +74,7 @@ const BookReports = () => {
               </div>
               <textarea
                 className={styles.pTextarea}
+                onChange={(e) => setImpressionInput(e.target.value)}
                 onFocus={() => setIsFocusedImpression(true)}
                 onBlur={() => setIsFocusedImpression(false)}
               ></textarea>
@@ -68,6 +88,7 @@ const BookReports = () => {
               </div>
               <textarea
                 className={styles.pTextarea}
+                onChange={(e) => setMemorableQuoteInput(e.target.value)}
                 onFocus={() => setIsFocusedMemorable(true)}
                 onBlur={() => setIsFocusedMemorable(false)}
               ></textarea>
@@ -75,7 +96,7 @@ const BookReports = () => {
           </div>
           <div className={styles.ButtonContainer}>
             <button className={styles.Button}>저장</button>
-            <button className={styles.Button2}>제출</button>
+            <button className={styles.Button2} onClick={() => {Submit()}}>제출</button>
           </div>
         </div>
       </div>
