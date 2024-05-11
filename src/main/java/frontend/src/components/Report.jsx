@@ -1,4 +1,4 @@
-import styles from "../styles/components/BookReports.module.css";
+import styles from "../styles/components/Report.module.css";
 import { Navigate, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -10,34 +10,34 @@ const BookReports = () => {
   const [isFocusedPlotSummary, setIsFocusedPlotSummary] = useState(false);
   const [isFocusedImpression, setIsFocusedImpression] = useState(false);
   const [isFocusedMemorable, setIsFocusedMemorable] = useState(false);
-  const [plotSummaryInput, setPlotSummaryInput] = useState("");
-  const [impressionInput, setImpressionInput] = useState("");
-  const [memorableQuoteInput, setMemorableQuoteInput] = useState("");
+  const [plotSummaryInput, setPlotSummaryInput] = useState([]);
+  const [impressionInput, setImpressionInput] = useState([]);
+  const [memorableQuoteInput, setMemorableQuoteInput] = useState([]);
+  const [bookId, setBookId] = useState([]);
   const navigate = useNavigate();
   
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/books/${id}`).then((res) => {
-      setTitle(res.data.title);
-      setAuthor(res.data.author);
+    axios.get(`http://localhost:8000/BookReports/${id}`).then((res) => {
+      setPlotSummaryInput(res.data.description)
+      setImpressionInput(res.data.Reviews)
+      setMemorableQuoteInput(res.data.Paragraph)
+      setBookId(res.data.bookId)
+      setAuthor(res.data.Writer);
     });
   }, []);
 
-  const Submit = () => {
-    const report = {
-      id: Date.now().toString(),
-      bookId: id,
-      Writer: "사용자", 
-      likes: 0,
-      description: plotSummaryInput,
-      Reviews: impressionInput,
-      Paragraph: memorableQuoteInput
-    };
+  useEffect(() => {
+    axios.get(`http://localhost:8000/books/${bookId}`).then((res) => {
+      setTitle(res.data.title);
+    });
+  }, [title]);
 
-    axios.post(`http://localhost:8000/BookReports`, report)
-    navigate(`/read/${id}`)
+  const Submit = () => {
+    navigate(-1);
   }
+
 
   return (
     <>
@@ -46,7 +46,7 @@ const BookReports = () => {
           <div className={styles.titleContainer}>
             <div>
               <div className={styles.title}>{title}</div>
-              <div className={styles.author}>저자: {author}</div>
+              <div className={styles.author}>글쓴이: {author}</div>
             </div>
             <div className={styles.img}></div>
           </div>
@@ -58,12 +58,11 @@ const BookReports = () => {
               >
                 줄거리 요약
               </div>
-              <textarea
+              <div
                 className={styles.pTextarea}
-                onChange={(e) => setPlotSummaryInput(e.target.value)}
                 onFocus={() => setIsFocusedPlotSummary(true)}
                 onBlur={() => setIsFocusedPlotSummary(false)}
-              ></textarea>
+              >{plotSummaryInput}</div>
             </div>
             <div className={styles.PlotSummaryContainer}>
               <div
@@ -72,12 +71,11 @@ const BookReports = () => {
               >
                 느낀 점 및 평가
               </div>
-              <textarea
+              <div
                 className={styles.pTextarea}
-                onChange={(e) => setImpressionInput(e.target.value)}
                 onFocus={() => setIsFocusedImpression(true)}
                 onBlur={() => setIsFocusedImpression(false)}
-              ></textarea>
+              >{impressionInput}</div>
             </div>
             <div className={styles.PlotSummaryContainer}>
               <div
@@ -86,17 +84,15 @@ const BookReports = () => {
               >
                 기억에 남는 구절
               </div>
-              <textarea
+              <div
                 className={styles.pTextarea}
-                onChange={(e) => setMemorableQuoteInput(e.target.value)}
                 onFocus={() => setIsFocusedMemorable(true)}
                 onBlur={() => setIsFocusedMemorable(false)}
-              ></textarea>
+              >{memorableQuoteInput}</div>
             </div>
           </div>
           <div className={styles.ButtonContainer}>
-            <button className={styles.Button}>저장</button>
-            <button className={styles.Button2} onClick={() => {Submit()}}>제출</button>
+            <button className={styles.Button2} onClick={() => {Submit()}}>돌아가기</button>
           </div>
         </div>
       </div>
@@ -105,3 +101,5 @@ const BookReports = () => {
 };
 
 export default BookReports;
+
+

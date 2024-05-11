@@ -17,9 +17,6 @@
   overflow-y: scroll;
 }
 
-.chatList{
-
-}
 
 ::-webkit-scrollbar {
   display: none;

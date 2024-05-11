@@ -194,6 +194,10 @@
   border-bottom: #C0C0C0 1px solid;
 }
 
+.WriterContainer:hover{
+  background-color: #efefef;
+}
+
 .ReportWriter{
   margin-left: 1.8rem;
   margin-top: 1.8rem;

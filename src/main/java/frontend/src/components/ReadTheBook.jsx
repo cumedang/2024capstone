@@ -1,4 +1,3 @@
-import styles from "../styles/components/ReadTheBook.module.css"
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -6,11 +5,13 @@ import { BsChatFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { BiSolidPencil } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
+import Pagination from "react-js-pagination";
+import styles from "../styles/components/ReadTheBook.module.css";
 
 const ReadTheBook = () => {
   const clickBoxRef = useRef(null);
-  const [swowReport, setSwowReport] = useState(true)
-  const [swowReport1, setSwowReport1] = useState(false)
+  const [swowReport, setSwowReport] = useState(true);
+  const [swowReport1, setSwowReport1] = useState(false);
   const { id } = useParams();
   const [results, setResults] = useState([]);
   const [report, setReport] = useState([]);
@@ -47,7 +48,7 @@ const ReadTheBook = () => {
 
   const handleSearch = () => {
     setSwowReport(false);
-    setSwowReport1(true)
+    setSwowReport1(true);
     if (!keyword.trim()) {
       return;
     }
@@ -58,57 +59,63 @@ const ReadTheBook = () => {
           const results = res.data.filter((book) =>
             book.Writer.toLowerCase().includes(keyword.toLowerCase())
           );
-          if (results.length === 0) {
+          const filteredReports = results.filter((item) => item.bookId === id);
+          if (filteredReports.length === 0) {
             alert("검색된 내용이 없습니다.");
           } else {
-            setSearchResults(results);
+            setSearchResults(filteredReports);
           }
         })
         .catch((error) => {
           console.error("검색 오류:", error);
         });
-    } 
+    }
   };
 
-  
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/books/${id}`)
+      .then((res) => {
+        setResults(res.data);
+      })
+      .catch((error) => {
+        console.error("검색 오류:", error);
+      });
+  }, []);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/books/${id}`)
-        .then((res) => {
-          setResults(res.data);
-        })
-        .catch((error) => {
-          console.error("검색 오류:", error);
-        });
-  },[])
-
-  useEffect(() => {
-    axios.get(`http://localhost:8000/BookReports/`)
-        .then((res) => {
-          setNum(res.data.length);
-          setReport(res.data);
-        })
-        .catch((error) => {
-          console.error("검색 오류:", error);
-        });
-  },[])
+    axios
+      .get(`http://localhost:8000/BookReports/`)
+      .then((res) => {
+        const filteredReports = res.data.filter((item) => item.bookId === id);
+        setNum(filteredReports.length);
+        setReport(res.data);
+      })
+      .catch((error) => {
+        console.error("검색 오류:", error);
+      });
+  }, []);
 
   const filteredReports = report.filter((item) => item.bookId === id);
 
-
-
   const BookReport = (id) => {
     navigate(`/search/${id}/BookReports`);
+  };
+
+  const read = (id) => {
+    navigate(`/BookReport/${id}`)
   }
 
-  return(
+  return (
     <>
       <div className={styles.ListContainer}>
         <div className={styles.ItemContainer}>
           <div className={styles.image}></div>
           <div className={styles.tagContainer}>
-            <div className={styles.tag}
-              style={{ backgroundColor: categoryColors[results.category] }}>
+            <div
+              className={styles.tag}
+              style={{ backgroundColor: categoryColors[results.category] }}
+            >
               {results.category}
             </div>
             <div className={styles.title}>{results.title}</div>
@@ -125,7 +132,11 @@ const ReadTheBook = () => {
                 <div className={styles.Details1}>{results.Publishers}</div>
                 <div className={styles.Details1}>{results.likes}</div>
                 <div className={styles.Details1}>{results.BookReports}</div>
-                <div className={styles.Details1}>{results && results.description && results.description.length > 160  ? results.description.slice(0, 160) + "..."  : (results && results.description) || "안떠용"}</div>
+                <div className={styles.Details1}>
+                  {results && results.description && results.description.length > 160
+                    ? results.description.slice(0, 160) + "..."
+                    : results && results.description || "안떠용"}
+                </div>
               </div>
             </div>
           </div>
@@ -138,57 +149,62 @@ const ReadTheBook = () => {
         <div className={styles.ReportContainer}>
           <div className={styles.Report}>
             <div className={styles.Num}>
-            <input
-              type="text"
-              className={styles.inputText}
-              value={keyword}
-              onChange={(e) => isKeyword(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder={`독후감 ${num}개`}
-            ></input>
-            <button
-              className={styles.searchButton}
-              onClick={handleSearch}
-              disabled={!keyword}
-            >
-              검색
-            </button>
+              <input
+                type="text"
+                className={styles.inputText}
+                value={keyword}
+                onChange={(e) => isKeyword(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder={`독후감 ${num}개`}
+              ></input>
+              <button
+                className={styles.searchButton}
+                onClick={handleSearch}
+                disabled={!keyword}
+              >
+                검색
+              </button>
             </div>
-            <div className={styles.WriteContainer}><div className={styles.Write} onClick={() => {BookReport(id)}}>독후감 작성하기 <div className={styles.ReportIcon}><BiSolidPencil /></div></div></div>
+            <div className={styles.WriteContainer}>
+              <div className={styles.Write} onClick={() => { BookReport(id) }}>
+                독후감 작성하기 <div className={styles.ReportIcon}><BiSolidPencil /></div>
+              </div>
+            </div>
           </div>
           <div className={styles.ReviewContainer}>
-          {swowReport && filteredReports.map(report => (
-            <div className={styles.WriterContainer} key={report.id}>
-              <div className={styles.flexContainer}>
-                <div className={styles.ReportWriter}>{report.Writer}</div>
-                <div className={styles.likesContainer}>
-                  <AiOutlineLike className={styles.likesicon}/>
-                  <div className={styles.likesicon1}>{report.likes}</div>
+            {swowReport && filteredReports.map(report => (
+              <div className={styles.WriterContainer} key={report.id} onClick={() => {read(report.id, id)}}>
+                <div className={styles.flexContainer}>
+                  <div className={styles.ReportWriter}>{report.Writer}</div>
+                  <div className={styles.likesContainer}>
+                    <AiOutlineLike className={styles.likesicon} />
+                    <div className={styles.likesicon1}>{report.likes}</div>
+                  </div>
+                </div>
+                <div className={styles.ReportDescription}>
+                  {report && report.description && report.description.length > 172
+                    ? report.description.slice(0, 172) + "..."
+                    : report && report.description || "안떠용"}
                 </div>
               </div>
-              <div className={styles.ReportDescription}>
-                {report && report.description && report.description.length > 172 
-                  ? report.description.slice(0, 172) + "..." 
-                  : (report && report.description) || "안떠용"}
-              </div>
-            </div>
-          ))}
-          {swowReport1 && searchResults.map(report => (
-            <div className={styles.WriterContainer} key={report.id}>
-              <div className={styles.flexContainer}>
-                <div className={styles.ReportWriter}>{report.Writer}</div>
-                <div className={styles.likesContainer}>
-                  <AiOutlineLike className={styles.likesicon}/>
-                  <div className={styles.likesicon1}>{report.likes}</div>
+            ))}
+            {swowReport1 && searchResults.map(report => (
+              <div className={styles.WriterContainer} key={report.id}>
+                <div className={styles.flexContainer}>
+                  <div className={styles.ReportWriter}>{report.Writer}</div>
+                  <div className={styles.likesContainer}>
+                    <AiOutlineLike className={styles.likesicon} />
+                    <div className={styles.likesicon1}>{report.likes}</div>
+                  </div>
                 </div>
+                <div className={styles.ReportDescription}>
+                  {report && report.description && report.description.length > 172
+                    ? report.description.slice(0, 172) + "..."
+                    : report && report.description || "안떠용"}
+                </div>
+
               </div>
-              <div className={styles.ReportDescription}>
-                {report && report.description && report.description.length > 172 
-                  ? report.description.slice(0, 172) + "..." 
-                  : (report && report.description) || "안떠용"}
-              </div>
-            </div>
-          ))}
+            ))}
             <div></div>
           </div>
         </div>
