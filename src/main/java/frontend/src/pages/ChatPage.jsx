@@ -1,4 +1,4 @@
-import Chat from "../components/ChatRooms";
+import Chat from "../components/Chat/ChatRooms";
 import TopNavbar from "../components/TopNavbar";
 
 const ChatPage = () => {
