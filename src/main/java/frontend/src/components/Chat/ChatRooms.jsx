@@ -21,37 +21,45 @@ const ChatRooms = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    socket = io(ENDPOINT);
-    socket.emit('join', {name, room}, (err) => {
-      if (err) {
-        alert(err);
+    const { name, room } = queryString.parse(window.location.search)
+
+    console.log(name, room)
+
+    socket = io(ENDPOINT)
+
+    setRoom(room)
+    setName(name)
+
+    socket.emit('join', { name, room }, (error) => {
+      if (error) {
+        console.log(error)
       }
-    });
-    return () => {
-      socket.disconnect();
-    }
-  }, [ENDPOINT, window.location.search]);
-  
+    })
+  }, [ENDPOINT, window.location.search])
+
   useEffect(() => {
-    socket.on('message', (message) => {
+    const messageListener = (message) => {
       setMessages(prevMessages => [...prevMessages, message]);
-    });
-    socket.on('roomData', ({users}) => {
+    };
+  
+    const roomDataListener = ({users}) => {
       setUsers(users);
-    });
-  }, [messages, users]);
-
-  useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages([...messages, message]);
-    });
-    socket.on('roomData', ({users}) => {
-      setUsers(users);
-    });
-  }, []);
-
+    };
+  
+    socket.on('message', messageListener);
+    socket.on('roomData', roomDataListener);
+  
+    return () => {
+      socket.off('message', messageListener);
+      socket.off('roomData', roomDataListener);
+    };
+  }, []); 
+  
+  
+  
   const sendMessage = (event) => {
     event.preventDefault();
+
     if (message) {
       socket.emit('sendMessage', message, () => setMessage(''));
     }

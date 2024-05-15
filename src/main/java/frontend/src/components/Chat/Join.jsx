@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Link } from "react-router-dom";
 
-import './Join.css';
+
 
 function Join() {
   const [name, setName] = useState('')
@@ -28,7 +28,7 @@ function Join() {
         </div>
         <Link
           onClick={(e) => (!name || !room ? e.preventDefault() : null)}
-          to={`/chat?name=${name}&room=${room}`}
+          to={`/chatrooms?name=${name}&room=${room}`}
         >
           <button className={'button mt-20'} type='submit'>
             가입

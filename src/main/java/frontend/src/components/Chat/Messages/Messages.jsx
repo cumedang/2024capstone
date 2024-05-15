@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-import './Messages.module.css';
+import BasicScrollToBottom from "react-scroll-to-bottom";
+import Message from "./Message/Message";
 
-function InfoBar() {
+import styles from './Messages.module.css';
+
+function Messages({ messages, name }) {
+
+
   return (
-    <div>
-      메세지s
-    </div>
+    <BasicScrollToBottom className={styles.messages}>
+      {messages.map((message, i) => {
+        return <div key={i}><Message message={message} name={name} /></div>
+      })}
+    </BasicScrollToBottom>
   );
 }
 
-export default InfoBar;
+export default Messages;

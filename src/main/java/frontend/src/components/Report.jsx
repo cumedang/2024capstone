@@ -101,5 +101,3 @@ const BookReports = () => {
 };
 
 export default BookReports;
-
-

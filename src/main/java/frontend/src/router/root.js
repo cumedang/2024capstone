@@ -8,6 +8,7 @@ const BookReports = lazy(() => import("../pages/BookReportsPage"))
 const ChatRooms = lazy(() => import("../pages/ChatPage"))
 const ReadTheBook = lazy(() => import("../pages/ReadPage"))
 const Report = lazy(() => import("../pages/ReportPage"))
+const Join = lazy(() => import("../components/Chat/Join")) 
 
 const root = createBrowserRouter([
   {
@@ -55,6 +56,13 @@ const root = createBrowserRouter([
     element: (
       <Suspense fallback={Loading}>
         <Report />
+      </Suspense>
+    ),
+  },{
+    path: `/join`,
+    element: (
+      <Suspense fallback={Loading}>
+        <Join />
       </Suspense>
     ),
   }
