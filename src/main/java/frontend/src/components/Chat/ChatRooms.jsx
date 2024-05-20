@@ -74,16 +74,17 @@ const ChatRooms = () => {
   return (
     <div className={styles.chatContainer}>
       <div className={styles.chatListContainer}>
-        {chatRooms.map((chatRoom) => (
-          <div key={chatRoom.id} className={styles.chatList}>
-            {chatRoom.name}
-          </div>
-        ))}
+        <div className={styles.list}>
+          {chatRooms.map((chatRoom) => (
+            <div key={chatRoom.id} className={styles.chatList}>
+              {chatRoom.name}
+            </div>
+          ))}
+        </div>
       </div>
       <div className={styles.chat}>
         <div className={styles.outerContainer}>
           <div className={styles.container}>
-            <InfoBar room={room} />
             <Messages messages={messages} name={name} />
             <Input
               message={message}
@@ -91,7 +92,7 @@ const ChatRooms = () => {
               sendMessage={sendMessage}
             />
           </div>
-          <TextContainer users={users} />
+          {/* <TextContainer users={users} />*/}
         </div>
       </div>
     </div>

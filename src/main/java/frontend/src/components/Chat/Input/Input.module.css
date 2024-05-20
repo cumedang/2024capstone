@@ -1,14 +1,19 @@
 .form {
   display: flex;
-  border-top: 2px solid #D3D3D3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .input {
   border: none;
-  border-radius: 0;
-  padding: 5%;
-  width: 80%;
-  font-size: 1.2em;
+  border: 2px solid #D3D3D3;
+  padding: 1rem;
+  width: 60rem;
+  height: 3rem;
+  font-size: 0.8em;
+  border-radius: 3px;
+  display: flex;
 }
 
 input:focus, textarea:focus, select:focus{
@@ -19,9 +24,17 @@ input:focus, textarea:focus, select:focus{
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
-  background: #2979FF;
-  padding: 20px;
+  background-color: #CCCCCC;
+  border-radius: 3px;
   display: inline-block;
   border: none;
-  width: 20%;
+  margin-left: 0.5rem;
+  width: 7rem;
+  height: 3rem;
+}
+
+.input:not(:placeholder-shown) + .sendButton {
+  background-color: #5467f5;
+  color: white; 
+  cursor: pointer;
 }

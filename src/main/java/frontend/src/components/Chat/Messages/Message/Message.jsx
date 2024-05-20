@@ -19,10 +19,10 @@ function Message({ message: { user, text }, name }) {
     </div>
   ) : (
     <div className={`${styles.messageContainer} ${styles.justifyStart}`}>
+      <p className={`${styles.sentText} ${styles.pl10}`}>{user}</p>
       <div className={`${styles.messageBox} ${styles.backgroundLight}`}>
         <p className={`${styles.messageText} ${styles.colorDark}`}>{ReactEmoji.emojify(text)}</p>
       </div>
-      <p className={`${styles.sentText} ${styles.pl10}`}>{user}</p>
     </div>
   );
 }

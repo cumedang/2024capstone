@@ -10,9 +10,11 @@ function Messages({ messages, name }) {
 
   return (
     <BasicScrollToBottom className={styles.messages}>
-      {messages.map((message, i) => {
-        return <div key={i}><Message message={message} name={name} /></div>
-      })}
+      <div className={styles.MessagesContainer}>
+        {messages.map((message, i) => {
+          return <div key={i}><Message message={message} name={name} /></div>
+        })}
+      </div>
     </BasicScrollToBottom>
   );
 }
