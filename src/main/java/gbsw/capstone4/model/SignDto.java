@@ -7,13 +7,14 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 @ToString
 @Getter
 @Setter
 @Entity
 @Table(name = "member")
-public class SIgnDto {
+public class SignDto {
     @Id
     private String id;
 
@@ -25,5 +26,9 @@ public class SIgnDto {
 
     @Column
     private String email;
+
+    @Column
+    @ColumnDefault("F")
+    private String grade;
 
 }
