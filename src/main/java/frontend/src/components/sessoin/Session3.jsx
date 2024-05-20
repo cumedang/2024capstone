@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/components/Session.module.css";
+import styles from "../../styles/components/session/Session3.module.css";
 
 const Session3 = () => {
   return (
