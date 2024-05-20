@@ -6,9 +6,34 @@ import {
 import styles from "../styles/components/Login.module.css";
 import kakaoImg from "../img/kakao.png";
 import naverImg from "../img/naver.png";
+import axios from "axios";
 
 const Login = ({ onClose, onSignUp }) => {
   const [saveInfo, setSaveInfo] = useState(false);
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+
+  const submit = (e) => {
+    e.preventDefault();
+
+    // axios
+    //   .post(``, {
+    //     id: id,
+    //     password: pw,
+    //   })
+    //   .then((res) => {
+    //     if (res.data.success) {
+    //       console.log("로그인 성공");
+    //       alert("로그인 성공");
+    //     } else {
+    //       alert(res.data.message);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     alert("로그인 실패");
+    //   });
+  };
 
   const toggleSaveInfo = () => {
     setSaveInfo(!saveInfo);
@@ -25,11 +50,20 @@ const Login = ({ onClose, onSignUp }) => {
   return (
     <div className={styles.align} onClick={handleClose}>
       <div className={styles.container} onClick={handleModalClick}>
-        <div className={styles.inner}>
+        <form className={styles.inner} onSubmit={submit}>
           <span className={styles.title}>LOGIN</span>
           <div className={styles.input}>
-            <input placeholder="아이디"></input>
-            <input type="password" placeholder="비밀번호"></input>
+            <input
+              placeholder="아이디"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            ></input>
+            <input
+              type="password"
+              placeholder="비밀번호"
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+            ></input>
           </div>
           <div className={styles.saveInfo} onClick={toggleSaveInfo}>
             {saveInfo ? (
@@ -39,7 +73,9 @@ const Login = ({ onClose, onSignUp }) => {
             )}
             <span>로그인 상태 유지</span>
           </div>
-          <button className={styles.loginBtn}>로그인</button>
+          <button className={styles.loginBtn} type="submit">
+            로그인
+          </button>
           <div className={styles.util}>
             <span onClick={onSignUp}>회원가입</span>
             <div className={styles.find}>
@@ -59,11 +95,11 @@ const Login = ({ onClose, onSignUp }) => {
               <span>카카오 계정으로 로그인</span>
             </button>
             <button className={styles.naver}>
-              <img src={naverImg} />
+              <img src={naverImg} alt="네이버 로그인" />
               <span>네이버 계정으로 로그인</span>
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

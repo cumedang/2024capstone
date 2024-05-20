@@ -1,5 +1,6 @@
   .ListContainer {
-    width: 60rem;
+    width: 100%;
+    max-width: 53rem;
     height: 100vh;
     overflow-y: auto;
     margin: 0 auto;
@@ -16,20 +17,24 @@
   }
 
   .search {
-    width: 70%;
-    height: 2.5rem;
+    width: 44rem;
+    height: 2.825rem;
     margin: 0 auto;
     display: flex;
+    gap: 0.5rem;
   }
 
   .clickBox {
-    width: 9rem;
+    width: 9.25rem;
     height: 100%;
-    border: solid 1px black;
+    border: solid 1px #c0c0c0;
     display: flex;
     align-items: center;
-    padding-left: 1rem;
+    justify-content: space-between;
+    padding: 0 1rem;
     border-radius: 0.2rem;
+    font-size: 0.9rem;
+    cursor: pointer;
   }
 
   .clickBox:hover {
@@ -39,37 +44,69 @@
   .icon {
     display: flex;
     align-items: center;
-    margin-left: 4rem;
+    font-size: 0.8rem;
   }
 
   .inputText {
-    width: 25rem;
-    margin-left: 0.5rem;
+    flex: 1;
+    width: auto;
     border-radius: 0.2rem;
     padding-left: 1rem;
+    border: 1px solid #c0c0c0;
+    outline-color: #555;
   }
 
   .searchButton {
-    width: 7rem;
-    margin-left: 0.5rem;
-    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 7.5rem;
+    background-color: #333;
     color: white;
+    outline: none;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .searchButton:hover {
+    background-color: #3f3f3f;
+  }
+
+  .searchButton:disabled {
+    background-color: #c0c0c0;
+    pointer-events: none;
   }
 
   .clickListContainer {
     position: absolute;
     top: 10rem;
-    width: 10rem;
+    width: 9.25rem;
     height: 10rem;
-    border: solid 1px black;
+    border: solid 1px #c0c0c0;
+    border-radius: 4px;
+    z-index: 100;
   }
 
   .clickList {
+    width: 100%;
     height: 25%;
     display: flex;
     align-items: center;
     padding-left: 1rem;
     background-color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .clickList:first-child {
+    border-radius: 4px 4px 0 0;
+  }
+
+  .clickList:last-child {
+    border-radius: 0 0 4px 4px;
   }
 
   .clickList:hover {
@@ -77,10 +114,9 @@
   }
 
   .listContainer {
-    width: 42rem;
+    width: 45rem;
     height: 31rem;
     overflow-y: auto;
-    border-top: solid 0.5px rgb(194, 194, 194);
     margin: 0 auto;
   }
 
@@ -89,68 +125,96 @@
   }
 
   .imgContainer {
-    margin: 1rem;
-    width: 8.5rem;
-    height: 11.5rem;
+    width: 27%;
+    height: auto;
     border: solid 1px black;
+    background-color: #fff;
+  }
+
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.725rem;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
   }
 
   .list {
-    margin: 1rem;
-    width: 25rem;
-    height: 9rem;
-    margin-left: 1rem;
-    border-bottom: solid 0.5px gray;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  .contour {
+    border-top: 1px solid #c0c0c0;
   }
 
   .itemContainer {
     display: flex;
-    border-bottom: solid 0.5px gray;
-    height: 13.5rem;
+    gap: 1.25rem;
+    border-top: solid 1px #c0c0c0;
+    height: 14rem;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all .1s ease;
+  }
+
+  .itemContainer:last-child {
+    border-bottom: solid 1px #c0c0c0;
+  }
+
+  .itemContainer:hover {
+    background-color: #f5f5f5;
   }
 
   .tag {
-    display: inline-block;
-    min-width: 2.5rem;
-    padding: 0.1rem;
-    padding-left: 0.4rem;
-    padding-right: 0.4rem;
+    width: max-content;
+    padding: 0.175rem 0.625rem;
     border-radius: 3rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    font-weight: 400;
     text-align: center;
-    color: white;
-    font-weight: bolder;
-    margin-bottom: 0.5rem;
+    color: #fff;
   }
 
   .titleText {
-    font-weight: bold;
-    margin-bottom: 0.4rem;
+    margin-top: 0.15rem;
+    font-size: 0.9rem;
+    font-weight: 700;
   }
 
   .descriptionText {
-    font-size: 0.8rem;
-    height: 4rem;
-    color: gray;
+    font-size: 0.7rem;
+    height: auto;
+    max-height: 3.5rem;
+    position: relative;
+    color: #666;
+    line-height: 1.666;
+    text-align: left;
+    overflow: hidden;
   }
 
   .Author {
-    font-size: 0.7rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.65rem;
     font-weight: 600;
   }
 
   .AuthorContainer {
     display: flex;
+    gap: 1rem;
+    width: 4rem;
     height: 1rem;
-    margin-left: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .likes {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: gray;
   }
 
@@ -158,7 +222,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.8rem;
-    margin-left: 2rem;
+    font-size: 0.7rem;
     color: gray;
   }
