@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(originPatterns = "http://localhost:3000")
 @RestController
 public class MemberController {
     private  final MemberService memberService;
