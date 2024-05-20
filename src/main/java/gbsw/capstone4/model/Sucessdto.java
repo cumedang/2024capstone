@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Sucessdto {
-    private Boolean sucess;
+    private Boolean success;
 }

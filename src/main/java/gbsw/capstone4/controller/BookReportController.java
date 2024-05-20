@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(originPatterns = "http://localhost:3000")
 @RestController
 public class BookReportController {
 

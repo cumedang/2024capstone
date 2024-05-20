@@ -39,7 +39,7 @@ public class MemberService {
 
     public Sucessdto loginService(HttpServletResponse response, SignDto signdto) {
         Sucessdto suceessdto = new Sucessdto();
-        suceessdto.setSucess(false);
+        suceessdto.setSuccess(false);
         System.out.println(signdto.getId());
         if(!findByid(signdto.getId())) {
             Optional<SignDto> pw = signReposirtory.findById(signdto.getId());
@@ -47,7 +47,7 @@ public class MemberService {
                 Cookie cookie = new Cookie("userid", signdto.getId());
                 cookie.setMaxAge(-1);
                 response.addCookie(cookie);
-                suceessdto.setSucess(true);
+                suceessdto.setSuccess(true);
                 return suceessdto;
             }
         }
@@ -55,14 +55,14 @@ public class MemberService {
     }
     public Sucessdto signService(SignDto signdto) {
         Sucessdto suceessdto = new Sucessdto();
-        suceessdto.setSucess(false);
+        suceessdto.setSuccess(false);
         if(findByid(signdto.getId())) {
             if(findByName(signdto.getName())) {
                 String hashedPassword = BCrypt.hashpw(signdto.getPassword(), BCrypt.gensalt());
                 signdto.setPassword(hashedPassword);
                 SignDto saveDto = signReposirtory.save(signdto);
                 if(saveDto != null) {
-                    suceessdto.setSucess(true);
+                    suceessdto.setSuccess(true);
                     entityManager.createNativeQuery("CREATE TABLE " + signdto.getId() + " (id INT AUTO_INCREMENT PRIMARY KEY, likename VARCHAR(255), likebook VARCHAR(255))").executeUpdate();
                     return suceessdto;
                 }else {

@@ -85,11 +85,12 @@ const ReadTheBook = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/BookReports/`)
+      .get(`http://localhost:8081/booklist`)
       .then((res) => {
-        const filteredReports = res.data.filter((item) => item.bookId === id);
+        console.log(res.data)
+        const filteredReports = res.data.content.filter((item) => item.bookId === id);
         setNum(filteredReports.length);
-        setReport(res.data);
+        setReport(res.data.content);
       })
       .catch((error) => {
         console.error("검색 오류:", error);
@@ -175,7 +176,7 @@ const ReadTheBook = () => {
   {swowReport && filteredReports.map(report => (
     <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.id)}>
       <div className={styles.flexContainer}>
-        <div className={styles.ReportWriter}>{report.Writer}</div>
+        <div className={styles.ReportWriter}>{report.writer}</div>
         <div className={styles.likesContainer}>
           <AiOutlineLike className={styles.likesicon} />
           <div className={styles.likesicon1}>{report.likes}</div>

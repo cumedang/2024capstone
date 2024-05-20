@@ -33,10 +33,10 @@ public class BookReportService {
 
     public Sucessdto createBoookReport(BookReportDto dto) {
         Sucessdto suceessdto = new Sucessdto();
-        suceessdto.setSucess(false);
+        suceessdto.setSuccess(false);
         BookReportDto bookReportDto = bookReportRepository.save(dto);
         if(bookReportDto != null) {
-            suceessdto.setSucess(true);
+            suceessdto.setSuccess(true);
             return suceessdto;
         }else {
             return suceessdto;
@@ -46,7 +46,7 @@ public class BookReportService {
 
     public Sucessdto deleteBookReport(ModifyDto dto) {
         Sucessdto suceessdto = new Sucessdto();
-        suceessdto.setSucess(false);
+        suceessdto.setSuccess(false);
 
         Optional<BookReportDto> bookReportDtoOptional = bookReportRepository.findByNo(dto.getId());
         if (bookReportDtoOptional.isPresent()) {
@@ -54,7 +54,7 @@ public class BookReportService {
             if (bookReportDto.getWriter().equals(dto.getUserId())) {
                 bookReportRepository.deleteByNo(dto.getId());
                 if (bookReportRepository.findByNo(dto.getId()).isEmpty()) {
-                    suceessdto.setSucess(true);
+                    suceessdto.setSuccess(true);
                     return suceessdto;
                 }
             }
@@ -64,7 +64,7 @@ public class BookReportService {
 
     public Sucessdto updateBookReport(BookReportDto dto) {
         Sucessdto suceessdto = new Sucessdto();
-        suceessdto.setSucess(false);
+        suceessdto.setSuccess(false);
         BookReportDto bookReportDto = entityManager.find(BookReportDto.class,dto.getNo());
         if(bookReportDto != null) {
             if(bookReportDto.getWriter().equals(dto.getWriter())){
@@ -72,7 +72,7 @@ public class BookReportService {
                 bookReportDto.setReviews(dto.getReviews());
                 bookReportDto.setParagraph(dto.getParagraph());
                 entityManager.merge(bookReportDto);
-                suceessdto.setSucess(true);
+                suceessdto.setSuccess(true);
                 return suceessdto;
             }
         }
