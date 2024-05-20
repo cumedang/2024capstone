@@ -1,13 +1,14 @@
 package gbsw.capstone4.controller;
 
-import gbsw.capstone4.model.LoginDto;
-import gbsw.capstone4.model.SIgnDto;
+import gbsw.capstone4.model.*;
 import gbsw.capstone4.service.MemberService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class MemberController {
@@ -19,14 +20,15 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String loginProcess(@RequestBody LoginDto dto) {
-        return memberService.LoginService(dto);
+    public Sucessdto loginProcess(HttpServletResponse response, @RequestBody SignDto dto) {
+        return memberService.loginService(response,dto);
     }
 
     @PostMapping("/sign")
-    public String signProvess(@RequestBody SIgnDto dto) {
-        return memberService.SignService(dto);
+    public Sucessdto signProcess(@RequestBody SignDto dto) {
+        return memberService.signService(dto);
     }
+
 
 
 }
