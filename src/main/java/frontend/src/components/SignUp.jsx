@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   IoIosCheckmarkCircle,
   IoIosCheckmarkCircleOutline,
@@ -10,6 +11,7 @@ const SignUp = ({ onClose }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
   const [idValid, setIdValid] = useState({
@@ -22,8 +24,10 @@ const SignUp = ({ onClose }) => {
     hasSymbols: false,
   });
   const [passwordMatch, setPasswordMatch] = useState(false);
-  const [checkEmail, setCheckEmail] = useState(false);
   const [allValid, setAllValid] = useState(false);
+
+  const navigate = useNavigate();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleIdChange = (e) => {
     const { value } = e.target;
@@ -51,10 +55,25 @@ const SignUp = ({ onClose }) => {
     setPasswordMatch(value === password);
   };
 
+  const handleNameChange = (e) => {
+    const { value } = e.target;
+    setName(value);
+  };
+
   const checkMail = (email) => {
-    setCheckEmail(true);
-    // axios.post(``, { email });
-    alert("인증번호 발송 완료");
+    if (!emailRegex.test(email)) {
+      alert("이메일 입력이 유효하지 않습니다.");
+    } else {
+      // axios
+      //   .post(``, { email })
+      //   .then((res) => {
+      //     alert("인증메일이 발송되었습니다. 이메일을 확인해주세요.");
+      //   })
+      //   .catch((e) => {
+      //     console.error("인증메일 발송에 실패했습니다.", e);
+      //     alert("인증메일 발송에 실패했습니다. 다시 시도해주세요.");
+      //   });
+    }
   };
 
   const isIdValid = idValid.lengthValid && idValid.conditionValid;
@@ -67,6 +86,21 @@ const SignUp = ({ onClose }) => {
       isIdValid && passwordLength && isPasswordValid && passwordMatch;
     setAllValid(isValid);
   }, [isIdValid, passwordLength, isPasswordValid, passwordMatch]);
+
+  const compltBtn = () => {
+    // axios
+    //   .post(``, {
+    //     name: name,
+    //     id: id,
+    //     password: password,
+    //     email: email,
+    //   })
+    //   .then((res) => {
+    //     alert("회원가입이 완료되었습니다.");
+    //     navigate("/login");
+    //   })
+    //   .catch((err) => console.log(err));
+  };
 
   const handleClose = () => {
     onClose();
@@ -83,12 +117,16 @@ const SignUp = ({ onClose }) => {
           <div className={styles.inner}>
             <span className={styles.title}>SIGN UP</span>
             <div className={styles.input}>
-              <input placeholder="이름"></input>
+              <input
+                placeholder="이름"
+                value={name}
+                onChange={handleNameChange}
+              />
               <input
                 placeholder="아이디"
                 value={id}
                 onChange={handleIdChange}
-              ></input>
+              />
               <div className={styles.password}>
                 <div>
                   <input
@@ -96,7 +134,7 @@ const SignUp = ({ onClose }) => {
                     placeholder="비밀번호"
                     value={password}
                     onChange={handlePasswordChange}
-                  ></input>
+                  />
                 </div>
                 <div>
                   <input
@@ -104,7 +142,7 @@ const SignUp = ({ onClose }) => {
                     placeholder="비밀번호 확인"
                     value={confirmPassword}
                     onChange={handleConfirmPasswordChange}
-                  ></input>
+                  />
                 </div>
               </div>
               <div className={styles.verifyEmail}>
@@ -112,16 +150,11 @@ const SignUp = ({ onClose }) => {
                   placeholder="이메일"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                ></input>
+                />
                 <button onClick={() => checkMail(email)} disabled={!email}>
-                  인증번호 발송
+                  인증메일 발송
                 </button>
               </div>
-              {checkEmail && (
-                <div className={styles.verifyEmail}>
-                  <input placeholder="인증번호"></input>
-                </div>
-              )}
             </div>
             <div className={styles.vaildCheckContainer}>
               <div className={styles.validCheck}>
@@ -159,7 +192,11 @@ const SignUp = ({ onClose }) => {
                 <span>비밀번호 일치</span>
               </div>
             </div>
-            <button className={styles.signUpBtn} disabled={!allValid}>
+            <button
+              className={styles.signUpBtn}
+              onClick={compltBtn}
+              disabled={!allValid}
+            >
               회원가입
             </button>
           </div>
