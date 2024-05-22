@@ -8,4 +8,6 @@ public interface BookListDto {
     int getLikes();
 
     String getBookId();
+
+    String getNo();
 }

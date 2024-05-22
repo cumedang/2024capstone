@@ -19,23 +19,28 @@ const BookReports = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/BookReports/${id}`).then((res) => {
+    axios.get(`http://localhost:8081/bookreport/${id}`).then((res) => {
       setPlotSummaryInput(res.data.description)
-      setImpressionInput(res.data.Reviews)
-      setMemorableQuoteInput(res.data.Paragraph)
+      setImpressionInput(res.data.reviews)
+      setMemorableQuoteInput(res.data.paragraph)
       setBookId(res.data.bookId)
-      setAuthor(res.data.Writer);
+      setAuthor(res.data.writer);
     });
   }, []);
 
   useEffect(() => {
     axios.get(`http://localhost:8000/books/${bookId}`).then((res) => {
+      console.log(res.data)
       setTitle(res.data.title);
     });
   }, [title]);
 
   const Submit = () => {
     navigate(-1);
+  }
+
+  const Submit2 = () => {
+    axios.post(`http://localhost:8081/delete`, );
   }
 
 
@@ -92,6 +97,7 @@ const BookReports = () => {
             </div>
           </div>
           <div className={styles.ButtonContainer}>
+            <button className={styles.Button2} onClick={() => {Submit2()}}>삭제</button>
             <button className={styles.Button2} onClick={() => {Submit()}}>돌아가기</button>
           </div>
         </div>
