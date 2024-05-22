@@ -174,7 +174,7 @@ const ReadTheBook = () => {
           </div>
           <div className={styles.ReviewContainer}>
   {swowReport && filteredReports.map(report => (
-    <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.id)}>
+    <div className={styles.WriterContainer} key={report.no} onClick={() => read(report.no)}>
       <div className={styles.flexContainer}>
         <div className={styles.ReportWriter}>{report.writer}</div>
         <div className={styles.likesContainer}>
