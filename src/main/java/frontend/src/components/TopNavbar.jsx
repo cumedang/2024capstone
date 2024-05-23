@@ -8,9 +8,15 @@ const TopNavbar = () => {
   const navigate = useNavigate();
   const [loginActive, setLoginActive] = useState(false);
   const [signUpActive, setSignUpActive] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
 
   const navigatePage = (page) => {
     navigate(`/${page}`);
+  };
+
+  const handleLoginSuccess = () => {
+    setIsLogin(true);
+    setLoginActive(false);
   };
 
   return (
@@ -22,6 +28,7 @@ const TopNavbar = () => {
             setSignUpActive(true);
             setLoginActive(false);
           }}
+          onLoginSuccess={handleLoginSuccess}
         />
       )}
       {signUpActive && <SignUp onClose={() => setSignUpActive(false)} />}
@@ -45,30 +52,33 @@ const TopNavbar = () => {
               도서목록
             </span>
             <span
-            onClick={() => {
-              navigatePage("chatrooms");
-            }}
-            >
-              채팅방</span>
-          </div>
-          <div className={styles.util}>
-            <button
-              className={styles.signup}
               onClick={() => {
-                setSignUpActive(true);
+                navigatePage("chatrooms");
               }}
             >
-              회원가입
-            </button>
-            <button
-              className={styles.login}
-              onClick={() => {
-                setLoginActive(true);
-              }}
-            >
-              로그인
-            </button>
+              채팅방
+            </span>
           </div>
+          {!isLogin && ( // 로그인 상태가 아닐 때만 버튼을 표시
+            <div className={styles.util}>
+              <button
+                className={styles.signup}
+                onClick={() => {
+                  setSignUpActive(true);
+                }}
+              >
+                회원가입
+              </button>
+              <button
+                className={styles.login}
+                onClick={() => {
+                  setLoginActive(true);
+                }}
+              >
+                로그인
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>
