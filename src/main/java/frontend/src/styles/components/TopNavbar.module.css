@@ -40,6 +40,7 @@
 .menu>span {
   font-size: 0.9rem;
   cursor: pointer;
+  display: flex;
 }
 
 .menu>span:hover {
@@ -78,4 +79,23 @@
 
 .util>button:last-child:hover {
   background-color: #4457e5;
+}
+
+.P{
+  margin-left: 0.3rem;
+  width: 1rem;
+  height: 1rem;
+  font-size: 0.8rem;
+  background-color: #4457e5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin-top: 0.1rem;
+}
+
+.PP{
+  display: flex;
+  align-items: center;
 }
