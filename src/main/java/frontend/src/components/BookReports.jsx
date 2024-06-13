@@ -26,14 +26,16 @@ const BookReports = () => {
 
   const Submit = () => {
     const report = {
-      id: Date.now().toString(),
+      no: Date.now().toString(),
       bookId: id,
-      Writer: "사용자", 
+      writer: "사용자",
       likes: 0,
       description: plotSummaryInput,
-      Reviews: impressionInput,
-      Paragraph: memorableQuoteInput
+      reviews: impressionInput,
+      paragraph: memorableQuoteInput
     };
+
+    console.log(report)
 
     axios.post(`http://localhost:8000/BookReports`, report)
     navigate(`/read/${id}`)

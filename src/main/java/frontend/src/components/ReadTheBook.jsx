@@ -85,8 +85,9 @@ const ReadTheBook = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/BookReports/`)
+      .get(`http://localhost:8000/BookReports`)
       .then((res) => {
+        console.log(res.data)
         const filteredReports = res.data.filter((item) => item.bookId === id);
         setNum(filteredReports.length);
         setReport(res.data);
@@ -172,35 +173,35 @@ const ReadTheBook = () => {
             </div>
           </div>
           <div className={styles.ReviewContainer}>
-  {swowReport && filteredReports.map(report => (
-    <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.id)}>
-      <div className={styles.flexContainer}>
-        <div className={styles.ReportWriter}>{report.Writer}</div>
-        <div className={styles.likesContainer}>
-          <AiOutlineLike className={styles.likesicon} />
-          <div className={styles.likesicon1}>{report.likes}</div>
-        </div>
-      </div>
-      <div className={styles.ReportDescription}>
-        {report.description.length > 172 ? report.description.slice(0, 172) + "..." : report.description || "안떠용"}
-      </div>
-    </div>
-  ))}
-  {swowReport1 && searchResults.map(report => (
-    <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.id)}>
-      <div className={styles.flexContainer}>
-        <div className={styles.ReportWriter}>{report.Writer}</div>
-        <div className={styles.likesContainer}>
-          <AiOutlineLike className={styles.likesicon} />
-          <div className={styles.likesicon1}>{report.likes}</div>
-        </div>
-      </div>
-      <div className={styles.ReportDescription}>
-        {report.description.length > 172 ? report.description.slice(0, 172) + "..." : report.description || "안떠용"}
-      </div>
-    </div>
-  ))}
-</div>        </div>
+            {swowReport && filteredReports.map(report => (
+              <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.id)}>
+                <div className={styles.flexContainer}>
+                  <div className={styles.ReportWriter}>{report.Writer}</div>
+                  <div className={styles.likesContainer}>
+                    <AiOutlineLike className={styles.likesicon} />
+                    <div className={styles.likesicon1}>{report.likes}</div>
+                  </div>
+                </div>
+                <div className={styles.ReportDescription}>
+                  {report.description.length > 172 ? report.description.slice(0, 172) + "..." : report.description || "안떠용"}
+                </div>
+              </div>
+            ))}
+          {swowReport1 && searchResults.map(report => (
+            <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.id)}>
+              <div className={styles.flexContainer}>
+                <div className={styles.ReportWriter}>{report.Writer}</div>
+                <div className={styles.likesContainer}>
+                  <AiOutlineLike className={styles.likesicon} />
+                  <div className={styles.likesicon1}>{report.likes}</div>
+                </div>
+              </div>
+              <div className={styles.ReportDescription}>
+                {report.description.length > 172 ? report.description.slice(0, 172) + "..." : report.description || "안떠용"}
+              </div>
+            </div>
+          ))}
+        </div>        </div>
       </div>
     </>
   )

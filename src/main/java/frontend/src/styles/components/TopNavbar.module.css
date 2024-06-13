@@ -40,6 +40,7 @@
 .menu>span {
   font-size: 0.9rem;
   cursor: pointer;
+  display: flex;
 }
 
 .menu>span:hover {
@@ -80,6 +81,7 @@
   background-color: #4457e5;
 }
 
+<<<<<<< HEAD
 .userInfo {
   display: flex;
   align-items: center;
@@ -108,4 +110,23 @@
   background-image: url("../../img/images.png");
   background-size: cover;
   cursor: pointer;
+=======
+.P{
+  margin-left: 0.3rem;
+  width: 1rem;
+  height: 1rem;
+  font-size: 0.8rem;
+  background-color: #4457e5;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin-top: 0.1rem;
+}
+
+.PP{
+  display: flex;
+  align-items: center;
+>>>>>>> ab99677efa20b495ad87598b577f4abbdf96ad16
 }

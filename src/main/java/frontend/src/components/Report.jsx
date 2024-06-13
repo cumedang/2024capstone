@@ -1,8 +1,7 @@
 import styles from "../styles/components/Report.module.css";
-import { Navigate, useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 const BookReports = () => {
   const [title, setTitle] = useState("");
@@ -10,34 +9,71 @@ const BookReports = () => {
   const [isFocusedPlotSummary, setIsFocusedPlotSummary] = useState(false);
   const [isFocusedImpression, setIsFocusedImpression] = useState(false);
   const [isFocusedMemorable, setIsFocusedMemorable] = useState(false);
-  const [plotSummaryInput, setPlotSummaryInput] = useState([]);
-  const [impressionInput, setImpressionInput] = useState([]);
-  const [memorableQuoteInput, setMemorableQuoteInput] = useState([]);
-  const [bookId, setBookId] = useState([]);
+  const [plotSummaryInput, setPlotSummaryInput] = useState("");
+  const [impressionInput, setImpressionInput] = useState("");
+  const [memorableQuoteInput, setMemorableQuoteInput] = useState("");
+  const [isEditable, setIsEditable] = useState(false);
+  const [bookId, setBookId] = useState("");
+  const [description, setDescription] = useState('');
   const navigate = useNavigate();
-  
+
   const { id } = useParams();
+
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+  };
 
   useEffect(() => {
     axios.get(`http://localhost:8000/BookReports/${id}`).then((res) => {
-      setPlotSummaryInput(res.data.description)
-      setImpressionInput(res.data.Reviews)
-      setMemorableQuoteInput(res.data.Paragraph)
-      setBookId(res.data.bookId)
+      setPlotSummaryInput(res.data.description);
+      setImpressionInput(res.data.Reviews);
+      setMemorableQuoteInput(res.data.Paragraph);
+      setBookId(res.data.bookId);
       setAuthor(res.data.Writer);
     });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/books/${bookId}`).then((res) => {
-      setTitle(res.data.title);
-    });
-  }, [title]);
+    if (bookId) {
+      axios.get(`http://localhost:8000/books/${bookId}`).then((res) => {
+        setTitle(res.data.title);
+      });
+    }
+  }, [bookId]);
 
-  const Submit = () => {
+  const submit = () => {
     navigate(-1);
-  }
+  };
 
+  const edit = () => {
+    setIsEditable(true);
+  };
+
+  const complete = () => {
+    axios.get(`http://localhost:8000/BookReports/${id}`).then((res) => {
+      const existingData = res.data;
+      const updatedData = {
+        ...existingData,
+        description: plotSummaryInput,
+        Reviews: impressionInput,
+        Paragraph: memorableQuoteInput
+      };
+      axios.put(`http://localhost:8000/BookReports/${id}`, updatedData);
+    });
+    window.location.reload();
+  };
+
+  useEffect(()=>{
+    console.log(plotSummaryInput)
+  },[plotSummaryInput])
+  
+  useEffect(()=>{
+    console.log(memorableQuoteInput)
+  },[memorableQuoteInput])
+
+  useEffect(()=>{
+    console.log(impressionInput)
+  },[impressionInput])
 
   return (
     <>
@@ -58,11 +94,14 @@ const BookReports = () => {
               >
                 줄거리 요약
               </div>
-              <div
+              <textarea
                 className={styles.pTextarea}
+                disabled={!isEditable}
                 onFocus={() => setIsFocusedPlotSummary(true)}
                 onBlur={() => setIsFocusedPlotSummary(false)}
-              >{plotSummaryInput}</div>
+                value={plotSummaryInput}
+                onChange={(e) => setPlotSummaryInput(e.target.value)}
+              />
             </div>
             <div className={styles.PlotSummaryContainer}>
               <div
@@ -71,11 +110,14 @@ const BookReports = () => {
               >
                 느낀 점 및 평가
               </div>
-              <div
+              <textarea
+                disabled={!isEditable}
                 className={styles.pTextarea}
                 onFocus={() => setIsFocusedImpression(true)}
                 onBlur={() => setIsFocusedImpression(false)}
-              >{impressionInput}</div>
+                value={impressionInput}
+                onChange={(e) => setImpressionInput(e.target.value)}
+              />
             </div>
             <div className={styles.PlotSummaryContainer}>
               <div
@@ -84,15 +126,25 @@ const BookReports = () => {
               >
                 기억에 남는 구절
               </div>
-              <div
+              <textarea
+                disabled={!isEditable}
                 className={styles.pTextarea}
                 onFocus={() => setIsFocusedMemorable(true)}
                 onBlur={() => setIsFocusedMemorable(false)}
-              >{memorableQuoteInput}</div>
+                value={memorableQuoteInput}
+                onChange={(e) => setMemorableQuoteInput(e.target.value)}
+              />
             </div>
           </div>
           <div className={styles.ButtonContainer}>
-            <button className={styles.Button2} onClick={() => {Submit()}}>돌아가기</button>
+            {isEditable ? (
+              <button className={styles.Button2} onClick={complete}>완료</button>
+            ) : (
+              <>
+                <button className={styles.Button2} onClick={edit}>수정</button>
+                <button className={styles.Button2} onClick={submit}>돌아가기</button>
+              </>
+            )}
           </div>
         </div>
       </div>

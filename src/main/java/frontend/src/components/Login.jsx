@@ -42,7 +42,12 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
     //   });
   };
 
-  const toggleSaveInfo = () => {
+  const test = () => {
+    onClose();
+    
+  }
+
+  const toggleSaveInfo = () => {  
     setSaveInfo(!saveInfo);
   };
 
@@ -57,7 +62,7 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
   return (
     <div className={styles.align} onClick={handleClose}>
       <div className={styles.container} onClick={handleModalClick}>
-        <form className={styles.inner} onSubmit={submit}>
+        <form className={styles.inner} onSubmit={test}>
           <span className={styles.title}>LOGIN</span>
           <div className={styles.input}>
             <input

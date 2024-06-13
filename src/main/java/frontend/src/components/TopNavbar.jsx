@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/components/TopNavbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { FaRegBell } from "react-icons/fa6";
@@ -9,6 +9,7 @@ const TopNavbar = () => {
   const navigate = useNavigate();
   const [loginActive, setLoginActive] = useState(false);
   const [signUpActive, setSignUpActive] = useState(false);
+
   const [isLogin, setIsLogin] = useState(false);
 
   const navigatePage = (page) => {
@@ -60,7 +61,7 @@ const TopNavbar = () => {
               채팅방
             </span>
           </div>
-          {!isLogin && (
+          {!isLogin && ( // 로그인 상태가 아닐 때만 버튼을 표시
             <div className={styles.util}>
               <button
                 className={styles.signup}
