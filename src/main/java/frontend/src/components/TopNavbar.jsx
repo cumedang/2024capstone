@@ -8,15 +8,16 @@ const TopNavbar = () => {
   const navigate = useNavigate();
   const [loginActive, setLoginActive] = useState(false);
   const [signUpActive, setSignUpActive] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem("loginToken");
-    setIsLoggedIn(!!token);
-  }, []);
+  const [isLogin, setIsLogin] = useState(false);
 
   const navigatePage = (page) => {
     navigate(`/${page}`);
+  };
+
+  const handleLoginSuccess = () => {
+    setIsLogin(true);
+    setLoginActive(false);
   };
 
   return (
@@ -28,6 +29,7 @@ const TopNavbar = () => {
             setSignUpActive(true);
             setLoginActive(false);
           }}
+          onLoginSuccess={handleLoginSuccess}
         />
       )}
       {signUpActive && <SignUp onClose={() => setSignUpActive(false)} />}
@@ -57,19 +59,8 @@ const TopNavbar = () => {
             >
               채팅방
             </span>
-            <span
-              onClick={() => {
-                navigatePage("chatrooms");
-              }}
-              className={styles.PP}
-            >
-              포인트상점 
-              <div className={styles.P}>P</div>
-            </span>
           </div>
-          {isLoggedIn ? (
-            <div className={styles.profile}>아이콘</div>
-          ) : (
+          {!isLogin && ( 
             <div className={styles.util}>
               <button
                 className={styles.signup}

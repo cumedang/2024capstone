@@ -8,31 +8,38 @@ import kakaoImg from "../img/kakao.png";
 import naverImg from "../img/naver.png";
 import axios from "axios";
 
-const Login = ({ onClose, onSignUp }) => {
+const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
   const [saveInfo, setSaveInfo] = useState(false);
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
   const submit = (e) => {
     e.preventDefault();
-    axios
-       .post(`http://localhost:8081/login`, {
-         id: id,
-         password: pw,
-       })
-       .then((res) => {
-         console.log(id)
-         if (res.data.success) {
-           console.log("로그인 성공");
-           alert("로그인 성공");
-         } else {
-           alert("로그인 실패");
-         }
-       })
-       .catch((err) => {
-         console.log(err);
-         alert("로그인 실패");
-       });
+
+    if (!id || !pw) {
+      alert("아이디와 비밀번호를 입력해주세요.");
+      return;
+    }
+
+    // axios
+    //   .post(``, {
+    //     id: id,
+    //     password: pw,
+    //     saveInfo: saveInfo,
+    //   })
+    //   .then((res) => {
+    //     if (res.data.success) {
+    //       console.log("로그인 성공");
+    //       alert("로그인 성공");
+    //       onLoginSuccess();
+    //     } else {
+    //       alert(res.data.message);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+    //   });
   };
 
   const test = () => {
