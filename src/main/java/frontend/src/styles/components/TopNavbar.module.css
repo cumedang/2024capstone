@@ -79,3 +79,33 @@
 .util>button:last-child:hover {
   background-color: #4457e5;
 }
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.alarm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  cursor: pointer;
+}
+
+.alarm>svg {
+  font-size: 1.5rem;
+  color: #b0b0b0;
+}
+
+.profile {
+  margin-left: 1.25rem;
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 9999px;
+  background-image: url("../../img/images.png");
+  background-size: cover;
+  cursor: pointer;
+}

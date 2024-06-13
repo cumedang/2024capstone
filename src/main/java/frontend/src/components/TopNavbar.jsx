@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "../styles/components/TopNavbar.module.css";
 import { useNavigate } from "react-router-dom";
+import { FaRegBell } from "react-icons/fa6";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
@@ -59,7 +60,7 @@ const TopNavbar = () => {
               채팅방
             </span>
           </div>
-          {!isLogin && ( // 로그인 상태가 아닐 때만 버튼을 표시
+          {!isLogin && (
             <div className={styles.util}>
               <button
                 className={styles.signup}
@@ -77,6 +78,14 @@ const TopNavbar = () => {
               >
                 로그인
               </button>
+            </div>
+          )}
+          {isLogin && (
+            <div className={styles.userInfo}>
+              <div className={styles.alarm}>
+                <FaRegBell />
+              </div>
+              <div className={styles.profile}></div>
             </div>
           )}
         </div>
