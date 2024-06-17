@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../styles/components/TopNavbar.module.css";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaRegBell } from "react-icons/fa6";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import Logo from "../img/logo.png";
 
 const TopNavbar = () => {
-  const navigate = useNavigate();
   const [loginActive, setLoginActive] = useState(false);
   const [signUpActive, setSignUpActive] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
-
-  const navigatePage = (page) => {
-    navigate(`/${page}`);
-  };
 
   const handleLoginSuccess = () => {
     setIsLogin(true);
@@ -37,31 +33,37 @@ const TopNavbar = () => {
       <div className={styles.container}>
         <div className={styles.inner}>
           <div className={styles.logo}>
-            <span
-              onClick={() => {
-                navigatePage("");
-              }}
-            >
-              READNET
-            </span>
+            <NavLink to="/">
+              <img src={Logo} alt="readnet" title="readnet"></img>
+            </NavLink>
           </div>
           <div className={styles.menu}>
-            <span
-              onClick={() => {
-                navigatePage("search");
-              }}
+            <NavLink
+              to="/search"
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
             >
               도서목록
-            </span>
-            <span
-              onClick={() => {
-                navigatePage("chatrooms");
-              }}
+            </NavLink>
+            <NavLink
+              to="/chatrooms"
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
             >
               채팅방
-            </span>
+            </NavLink>
+            <NavLink
+              to="/shop"
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
+            >
+              포인트상점
+            </NavLink>
           </div>
-          {!isLogin && ( // 로그인 상태가 아닐 때만 버튼을 표시
+          {!isLogin && (
             <div className={styles.util}>
               <button
                 className={styles.signup}
