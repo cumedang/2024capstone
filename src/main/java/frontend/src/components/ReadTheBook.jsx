@@ -5,32 +5,28 @@ import { BsChatFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { BiSolidPencil } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
-import Pagination from "react-js-pagination";
+import Pagination from "../components/Pasing/Pagination";
 import styles from "../styles/components/ReadTheBook.module.css";
 
 const ReadTheBook = () => {
   const clickBoxRef = useRef(null);
-  const [swowReport, setSwowReport] = useState(true);
-  const [swowReport1, setSwowReport1] = useState(false);
+  const [showReport, setShowReport] = useState(true);
+  const [showReport1, setShowReport1] = useState(false);
   const { id } = useParams();
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState({});
   const [report, setReport] = useState([]);
-  const [num, setNum] = useState([]);
+  const [num, setNum] = useState(0);
   const navigate = useNavigate();
-  const [click, setClick] = useState(false);
   const [title, setTitle] = useState("제목");
-  const [keyword, isKeyword] = useState("");
-  const [data, setData] = useState([]);
+  const [keyword, setKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const modalWrapperRef = useRef(null);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const categoryColors = {
     총류: "#ff0000",
     철학: "#ff9100",
-    종교: "##fff202",
+    종교: "#fff202",
     사회과학: "#00f7ff",
     자연과학: "#0f00de",
     기술과학: "#8400ff",
@@ -47,29 +43,28 @@ const ReadTheBook = () => {
   };
 
   const handleSearch = () => {
-    setSwowReport(false);
-    setSwowReport1(true);
+    setShowReport(false);
+    setShowReport1(true);
     if (!keyword.trim()) {
       return;
     }
-    if (title === "제목") {
-      axios
-        .get("http://localhost:8000/BookReports")
-        .then((res) => {
-          const results = res.data.filter((book) =>
-            book.Writer.toLowerCase().includes(keyword.toLowerCase())
-          );
-          const filteredReports = results.filter((item) => item.bookId === id);
-          if (filteredReports.length === 0) {
-            alert("검색된 내용이 없습니다.");
-          } else {
-            setSearchResults(filteredReports);
-          }
-        })
-        .catch((error) => {
-          console.error("검색 오류:", error);
-        });
-    }
+    axios
+      .get("http://localhost:8000/BookReports")
+      .then((res) => {
+        const results = res.data.filter((book) =>
+          book.Writer.toLowerCase().includes(keyword.toLowerCase())
+        );
+        const filteredReports = results.filter((item) => item.bookId === id);
+        if (filteredReports.length === 0) {
+          alert("검색된 내용이 없습니다.");
+        } else {
+          setSearchResults(filteredReports);
+          setCurrentPage(1); // 검색 결과를 보여줄 때 첫 페이지로 초기화
+        }
+      })
+      .catch((error) => {
+        console.error("검색 오류:", error);
+      });
   };
 
   useEffect(() => {
@@ -79,33 +74,40 @@ const ReadTheBook = () => {
         setResults(res.data);
       })
       .catch((error) => {
-        console.error("검색 오류:", error);
+        console.error("책 정보 불러오기 오류:", error);
       });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     axios
       .get(`http://localhost:8000/BookReports`)
       .then((res) => {
-        console.log(res.data)
         const filteredReports = res.data.filter((item) => item.bookId === id);
         setNum(filteredReports.length);
-        setReport(res.data);
+        setReport(filteredReports);
       })
       .catch((error) => {
-        console.error("검색 오류:", error);
+        console.error("독후감 불러오기 오류:", error);
       });
-  }, []);
-
-  const filteredReports = report.filter((item) => item.bookId === id);
+  }, [id]);
 
   const BookReport = (id) => {
     navigate(`/search/${id}/BookReports`);
   };
 
   const read = (id) => {
-    navigate(`/BookReport/${id}`)
-  }
+    navigate(`/BookReport/${id}`);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const displayedReports = showReport ? report : searchResults;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentReports = displayedReports.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(displayedReports.length / itemsPerPage);
 
   return (
     <>
@@ -132,11 +134,11 @@ const ReadTheBook = () => {
                 <div className={styles.Details1}>{results.author}</div>
                 <div className={styles.Details1}>{results.Publishers}</div>
                 <div className={styles.Details1}>{results.likes}</div>
-                <div className={styles.Details1}>{results.BookReports}</div>
+                <div className={styles.Details1}>{num}</div>
                 <div className={styles.Details1}>
-                  {results && results.description && results.description.length > 160
+                  {results.description && results.description.length > 160
                     ? results.description.slice(0, 160) + "..."
-                    : results && results.description || "안떠용"}
+                    : results.description || "안떠용"}
                 </div>
               </div>
             </div>
@@ -154,10 +156,10 @@ const ReadTheBook = () => {
                 type="text"
                 className={styles.inputText}
                 value={keyword}
-                onChange={(e) => isKeyword(e.target.value)}
+                onChange={(e) => setKeyword(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder={`독후감 ${num}개`}
-              ></input>
+              />
               <button
                 className={styles.searchButton}
                 onClick={handleSearch}
@@ -167,13 +169,13 @@ const ReadTheBook = () => {
               </button>
             </div>
             <div className={styles.WriteContainer}>
-              <div className={styles.Write} onClick={() => { BookReport(id) }}>
+              <div className={styles.Write} onClick={() => BookReport(id)}>
                 독후감 작성하기 <div className={styles.ReportIcon}><BiSolidPencil /></div>
               </div>
             </div>
           </div>
           <div className={styles.ReviewContainer}>
-            {swowReport && filteredReports.map(report => (
+            {currentReports.map(report => (
               <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.id)}>
                 <div className={styles.flexContainer}>
                   <div className={styles.ReportWriter}>{report.Writer}</div>
@@ -187,24 +189,18 @@ const ReadTheBook = () => {
                 </div>
               </div>
             ))}
-          {swowReport1 && searchResults.map(report => (
-            <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.id)}>
-              <div className={styles.flexContainer}>
-                <div className={styles.ReportWriter}>{report.Writer}</div>
-                <div className={styles.likesContainer}>
-                  <AiOutlineLike className={styles.likesicon} />
-                  <div className={styles.likesicon1}>{report.likes}</div>
-                </div>
-              </div>
-              <div className={styles.ReportDescription}>
-                {report.description.length > 172 ? report.description.slice(0, 172) + "..." : report.description || "안떠용"}
-              </div>
-            </div>
-          ))}
-        </div>        </div>
+          </div>
+          <Pagination
+            totalItems={displayedReports.length}
+            itemCountPerPage={itemsPerPage}
+            pageCount={5}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default ReadTheBook;
