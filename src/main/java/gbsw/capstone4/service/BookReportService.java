@@ -3,7 +3,7 @@ package gbsw.capstone4.service;
 import gbsw.capstone4.model.BookListDto;
 import gbsw.capstone4.model.BookReportDto;
 import gbsw.capstone4.model.ModifyDto;
-import gbsw.capstone4.model.Sucessdto;
+import gbsw.capstone4.model.Successdto;
 import gbsw.capstone4.repository.BookListRepository;
 import gbsw.capstone4.repository.BookReportRepository;
 import jakarta.persistence.EntityManager;
@@ -31,8 +31,8 @@ public class BookReportService {
         this.bookListRepository = bookListRepository;
     }
 
-    public Sucessdto createBoookReport(BookReportDto dto) {
-        Sucessdto suceessdto = new Sucessdto();
+    public Successdto createBoookReport(BookReportDto dto) {
+        Successdto suceessdto = new Successdto();
         suceessdto.setSuccess(false);
         BookReportDto bookReportDto = bookReportRepository.save(dto);
         if(bookReportDto != null) {
@@ -44,8 +44,8 @@ public class BookReportService {
 
     }
 
-    public Sucessdto deleteBookReport(ModifyDto dto) {
-        Sucessdto suceessdto = new Sucessdto();
+    public Successdto deleteBookReport(ModifyDto dto) {
+        Successdto suceessdto = new Successdto();
         suceessdto.setSuccess(false);
 
         Optional<BookReportDto> bookReportDtoOptional = bookReportRepository.findByNo(dto.getId());
@@ -62,8 +62,8 @@ public class BookReportService {
         return suceessdto;
     }
 
-    public Sucessdto updateBookReport(BookReportDto dto) {
-        Sucessdto suceessdto = new Sucessdto();
+    public Successdto updateBookReport(BookReportDto dto) {
+        Successdto suceessdto = new Successdto();
         suceessdto.setSuccess(false);
         BookReportDto bookReportDto = entityManager.find(BookReportDto.class,dto.getNo());
         if(bookReportDto != null) {

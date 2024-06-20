@@ -5,6 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Sucessdto {
-    private Boolean success;
+public class LoginDto {
+    private String  id;
+
+    private String  password;
 }
