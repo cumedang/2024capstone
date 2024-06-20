@@ -7,7 +7,7 @@ import styles from "../styles/components/Login.module.css";
 import kakaoImg from "../img/kakao.png";
 import naverImg from "../img/naver.png";
 import axios from "axios";
-import { getCookie, removeCookie, setCookie } from '../utils/cookie';
+import { getCookie, removeCookie, setCookie } from "../utils/cookie";
 
 const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
   const [saveInfo, setSaveInfo] = useState(false);
@@ -22,31 +22,27 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
       return;
     }
 
-    axios.post(`http://3.39.223.205/login`, {
-         id: id,
-         password: pw,
-       })
-       .then((res) => {
-         if (res.data.success) {
-           console.log("로그인 성공");
-           alert("로그인 성공");
-           onLoginSuccess();
-         } else {
-           alert(res.data.message);
-         }
-       })
-       .catch((err) => {
-         console.error(err);
-         alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
-       });
+    axios
+      .post(`http://3.39.223.205/login`, {
+        id: id,
+        password: pw,
+      })
+      .then((res) => {
+        if (res.data.success) {
+          console.log("로그인 성공");
+          alert("로그인 성공");
+          onLoginSuccess();
+        } else {
+          alert(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+      });
   };
 
-  const test = () => {
-    onClose();
-    
-  }
-
-  const toggleSaveInfo = () => {  
+  const toggleSaveInfo = () => {
     setSaveInfo(!saveInfo);
   };
 
@@ -61,7 +57,7 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
   return (
     <div className={styles.align} onClick={handleClose}>
       <div className={styles.container} onClick={handleModalClick}>
-        <form className={styles.inner} onSubmit={test}>
+        <form className={styles.inner}>
           <span className={styles.title}>LOGIN</span>
           <div className={styles.input}>
             <input
@@ -84,7 +80,7 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
             )}
             <span>로그인 상태 유지</span>
           </div>
-          <button className={styles.loginBtn} type="submit">
+          <button className={styles.loginBtn} onClick={submit}>
             로그인
           </button>
           <div className={styles.util}>
