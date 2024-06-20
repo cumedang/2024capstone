@@ -9,7 +9,6 @@ import Logo from "../img/logo.png";
 const TopNavbar = () => {
   const [loginActive, setLoginActive] = useState(false);
   const [signUpActive, setSignUpActive] = useState(false);
-
   const [isLogin, setIsLogin] = useState(false);
 
   const handleLoginSuccess = () => {

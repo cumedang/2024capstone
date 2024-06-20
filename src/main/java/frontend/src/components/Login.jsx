@@ -7,7 +7,7 @@ import styles from "../styles/components/Login.module.css";
 import kakaoImg from "../img/kakao.png";
 import naverImg from "../img/naver.png";
 import axios from "axios";
-import { getCookie, removeCookie, setCookie } from "../utils/cookie";
+import { setCookie } from "../utils/cookie";
 
 const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
   const [saveInfo, setSaveInfo] = useState(false);
@@ -29,15 +29,20 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
       })
       .then((res) => {
         if (res.data.success) {
+          setCookie("Authorization", `${res.token}`, {
+            path: "/",
+            httponly: true,
+            secure: true,
+          });
           console.log("로그인 성공");
-          alert("로그인 성공");
+          alert("로그인에 성공했습니다.");
           onLoginSuccess();
         } else {
           alert(res.data.message);
         }
       })
       .catch((err) => {
-        console.error(err);
+        console.error("로그인 실패.", err);
         alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
       });
   };
