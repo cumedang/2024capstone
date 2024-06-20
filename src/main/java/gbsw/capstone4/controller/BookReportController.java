@@ -3,12 +3,11 @@ package gbsw.capstone4.controller;
 import gbsw.capstone4.model.BookListDto;
 import gbsw.capstone4.model.BookReportDto;
 import gbsw.capstone4.model.ModifyDto;
-import gbsw.capstone4.model.Sucessdto;
+import gbsw.capstone4.model.Successdto;
 import gbsw.capstone4.service.BookReportService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin(originPatterns = "http://localhost:3000")
 @RestController
 public class BookReportController {
 
@@ -19,16 +18,16 @@ public class BookReportController {
     }
 
     @PostMapping("/bookreport")
-    public Sucessdto bookReport(@RequestBody BookReportDto dto) {
+    public Successdto bookReport(@RequestBody BookReportDto dto) {
         return bookReportService.createBoookReport(dto);
     }
     @PostMapping("/bookreport/delete")
-    public Sucessdto deleteBookReport(@RequestBody ModifyDto dto) {
+    public Successdto deleteBookReport(@RequestBody ModifyDto dto) {
         return bookReportService.deleteBookReport(dto);
     }
 
     @PostMapping("/bookreport/update")
-    public Sucessdto updateBookReport(@RequestBody BookReportDto dto) {
+    public Successdto updateBookReport(@RequestBody BookReportDto dto) {
         return bookReportService.updateBookReport(dto);
     }
 
