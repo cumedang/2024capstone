@@ -69,7 +69,8 @@
   gap: 4%;
 }
 
-.util>button {
+.signup,
+.login {
   width: 5.5rem;
   height: 2.25rem;
   border-radius: 32px;
@@ -79,20 +80,25 @@
   transition: all .15s ease;
 }
 
-.util>button:first-child {
+.signup:disabled,
+.login:disabled {
+  display: none;
+}
+
+.signup {
   background-color: #fff;
 }
 
-.util>button:last-child {
+.login {
   background-color: #5467f5;
   color: #fff;
 }
 
-.util>button:first-child:hover {
+.signup:hover {
   background-color: #eee;
 }
 
-.util>button:last-child:hover {
+.login:hover {
   background-color: #4457e5;
 }
 
