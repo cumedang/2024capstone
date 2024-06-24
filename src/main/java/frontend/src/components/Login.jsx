@@ -7,15 +7,15 @@ import styles from "../styles/components/Login.module.css";
 import kakaoImg from "../img/kakao.png";
 import naverImg from "../img/naver.png";
 import axios from "axios";
-import { getCookie, removeCookie, setCookie } from "../utils/cookie";
+import { setCookie } from "../utils/cookie";
 
 const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
   const [saveInfo, setSaveInfo] = useState(false);
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
-  const submit = (e) => {
-    e.preventDefault();
+  const submit = (event) => {
+    event.preventDefault();
 
     if (!id || !pw) {
       alert("아이디와 비밀번호를 입력해주세요.");
@@ -29,15 +29,19 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
       })
       .then((res) => {
         if (res.data.success) {
-          console.log("로그인 성공");
-          alert("로그인 성공");
-          onLoginSuccess();
-        } else {
-          alert(res.data.message);
+          console.log("success 완료");
+          if (res.data.token) {
+            setCookie("Authorization", `${res.data.token}`, {
+              path: "/",
+              secure: true,
+            });
+            alert("로그인에 성공했습니다.");
+            onLoginSuccess();
+          }
         }
       })
       .catch((err) => {
-        console.error(err);
+        console.error("로그인 실패.", err);
         alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
       });
   };
@@ -57,7 +61,7 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
   return (
     <div className={styles.align} onClick={handleClose}>
       <div className={styles.container} onClick={handleModalClick}>
-        <form className={styles.inner}>
+        <form className={styles.inner} onSubmit={submit}>
           <span className={styles.title}>LOGIN</span>
           <div className={styles.input}>
             <input
@@ -80,7 +84,7 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
             )}
             <span>로그인 상태 유지</span>
           </div>
-          <button className={styles.loginBtn} onClick={submit}>
+          <button className={styles.loginBtn} type="submit">
             로그인
           </button>
           <div className={styles.util}>
