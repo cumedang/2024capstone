@@ -1,12 +1,12 @@
 import { RouterProvider } from "react-router-dom";
-import Paging from "./components/Pasing/Pagination";
+import { AuthProvider } from "./context/AuthContext";
 import root from "./router/root";
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <RouterProvider router={root} />
-    </>
+    </AuthProvider>
   );
 }
 

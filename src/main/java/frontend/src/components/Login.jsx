@@ -30,14 +30,13 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
       .then((res) => {
         if (res.data.success) {
           console.log("success 완료");
-          if (res.data.token) {
-            setCookie("Authorization", `${res.data.token}`, {
-              path: "/",
-              secure: true,
-            });
-            alert("로그인에 성공했습니다.");
-            onLoginSuccess();
-          }
+          setCookie("Authorization", `${res.data.token}`, {
+            path: "/",
+            secure: true,
+          });
+          alert("로그인에 성공했습니다.");
+          onLoginSuccess();
+          onClose();
         }
       })
       .catch((err) => {
