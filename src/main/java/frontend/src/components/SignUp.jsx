@@ -11,8 +11,8 @@ const SignUp = ({ onClose }) => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [usernm, setUsernm] = useState("");
+  const [mail, setMail] = useState("");
 
   const [idValid, setIdValid] = useState({
     lengthValid: false,
@@ -57,7 +57,7 @@ const SignUp = ({ onClose }) => {
 
   const handleNameChange = (e) => {
     const { value } = e.target;
-    setName(value);
+    setUsernm(value);
   };
 
   const checkMail = (email) => {
@@ -69,8 +69,8 @@ const SignUp = ({ onClose }) => {
       //   .then((res) => {
       //     alert("인증메일이 발송되었습니다. 이메일을 확인해주세요.");
       //   })
-      //   .catch((e) => {
-      //     console.error("인증메일 발송에 실패했습니다.", e);
+      //   .catch((err) => {
+      //     console.error("인증메일 발송에 실패했습니다.", err);
       //     alert("인증메일 발송에 실패했습니다. 다시 시도해주세요.");
       //   });
     }
@@ -88,18 +88,21 @@ const SignUp = ({ onClose }) => {
   }, [isIdValid, passwordLength, isPasswordValid, passwordMatch]);
 
   const compltBtn = () => {
-    // axios
-    //   .post(``, {
-    //     name: name,
-    //     id: id,
-    //     password: password,
-    //     email: email,
-    //   })
-    //   .then((res) => {
-    //     alert("회원가입이 완료되었습니다.");
-    //     navigate("/login");
-    //   })
-    //   .catch((err) => console.log(err));
+    axios
+      .post(`http://3.39.223.205/signup`, {
+        name: usernm,
+        id: id,
+        password: password,
+        email: mail,
+      })
+      .then(() => {
+        alert("회원가입이 완료되었습니다.");
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log("회원가입 실패.", err);
+        alert("회원가입 증 오류가 발생했습니다. 다시 시도해주세요.");
+      });
   };
 
   const handleClose = () => {
@@ -119,7 +122,7 @@ const SignUp = ({ onClose }) => {
             <div className={styles.input}>
               <input
                 placeholder="이름"
-                value={name}
+                value={usernm}
                 onChange={handleNameChange}
               />
               <input
@@ -148,10 +151,10 @@ const SignUp = ({ onClose }) => {
               <div className={styles.verifyEmail}>
                 <input
                   placeholder="이메일"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={mail}
+                  onChange={(e) => setMail(e.target.value)}
                 />
-                <button onClick={() => checkMail(email)} disabled={!email}>
+                <button onClick={() => checkMail(mail)} disabled={!mail}>
                   인증메일 발송
                 </button>
               </div>
