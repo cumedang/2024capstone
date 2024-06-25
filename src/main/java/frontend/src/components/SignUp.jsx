@@ -64,15 +64,15 @@ const SignUp = ({ onClose }) => {
     if (!emailRegex.test(email)) {
       alert("이메일 입력이 유효하지 않습니다.");
     } else {
-      // axios
-      //   .post(``, { email })
-      //   .then((res) => {
-      //     alert("인증메일이 발송되었습니다. 이메일을 확인해주세요.");
-      //   })
-      //   .catch((err) => {
-      //     console.error("인증메일 발송에 실패했습니다.", err);
-      //     alert("인증메일 발송에 실패했습니다. 다시 시도해주세요.");
-      //   });
+       axios
+         .post(`http://3.39.223.205/mailsend`, { email })
+         .then((res) => {
+           alert("인증메일이 발송되었습니다. 이메일을 확인해주세요.");
+         })
+         .catch((err) => {
+           console.error("인증메일 발송에 실패했습니다.", err);
+           alert("인증메일 발송에 실패했습니다. 다시 시도해주세요.");
+         });
     }
   };
 
