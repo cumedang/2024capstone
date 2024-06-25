@@ -49,13 +49,28 @@ const TopNavbar = () => {
             </NavLink>
           </div>
           <div className={styles.menu}>
-            <NavLink to="/search" activeClassName={styles.active}>
+            <NavLink
+              to="/search"
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
+            >
               도서목록
             </NavLink>
-            <NavLink to="/chatrooms" activeClassName={styles.active}>
+            <NavLink
+              to="/chatrooms"
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
+            >
               채팅방
             </NavLink>
-            <NavLink to="/shop" activeClassName={styles.active}>
+            <NavLink
+              to="/shop"
+              className={({ isActive }) =>
+                isActive ? styles.active : undefined
+              }
+            >
               포인트상점
             </NavLink>
           </div>
