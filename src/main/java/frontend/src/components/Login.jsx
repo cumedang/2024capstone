@@ -29,8 +29,9 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
       })
       .then((res) => {
         if (res.data.success) {
+          console.log(res.data);
           console.log("success 완료");
-          setCookie("Authorization", `${res.data.token}`, {
+          setCookie("Authorization", `${res.data.data.token}`, {
             path: "/",
             secure: true,
           });
