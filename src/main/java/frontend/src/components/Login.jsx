@@ -25,7 +25,7 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
     axios
       .post(`http://3.39.223.205/login`, {
         id: id,
-        password: pw,
+        password: pw
       })
       .then((res) => {
         if (res.data.success) {

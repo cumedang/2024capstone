@@ -3,6 +3,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
+import { setCookie, getCookie, removeCookie } from "../utils/cookie";
 
 const BookReports = () => {
   const [title, setTitle] = useState("");
@@ -13,16 +14,31 @@ const BookReports = () => {
   const [plotSummaryInput, setPlotSummaryInput] = useState("");
   const [impressionInput, setImpressionInput] = useState("");
   const [memorableQuoteInput, setMemorableQuoteInput] = useState("");
+  const [name, setName] = useState("");
+    
   const navigate = useNavigate();
   
   const { id } = useParams();
 
   useEffect(() => {
+    const token = getCookie("name");
     axios.get(`http://localhost:8000/books/${id}`).then((res) => {
       setTitle(res.data.title);
       setAuthor(res.data.author);
     });
   }, []);
+
+  useEffect(() => {
+    const token = getCookie("name");
+    axios.get(`http://3.39.223.205/profile`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((res) => {
+      console.log(res.data)
+      setName()
+    })
+  }, [])
 
   const Submit = () => {
     const report = {
@@ -37,7 +53,7 @@ const BookReports = () => {
 
     console.log(report)
 
-    axios.post(`http://localhost:8000/BookReports`, report)
+    axios.post(`http://3.39.223.205/BookReports`, report)
     navigate(`/read/${id}`)
   }
 
