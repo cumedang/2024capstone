@@ -7,6 +7,7 @@ import { BiSolidPencil } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import Pagination from "../components/Pasing/Pagination";
 import styles from "../styles/components/ReadTheBook.module.css";
+import { setCookie, getCookie, removeCookie } from "../utils/cookie";
 
 const ReadTheBook = () => {
   const clickBoxRef = useRef(null);
@@ -79,8 +80,13 @@ const ReadTheBook = () => {
   }, [id]);
 
   useEffect(() => {
+    const token = getCookie("Authorization");
     axios
-      .get(`http://localhost:8000/BookReports`)
+      .get(`http://3.39.223.205/reportlist`, {
+        headers: {
+          'Authorization': `Bearer ${token}`  
+        }
+      })
       .then((res) => {
         const filteredReports = res.data.filter((item) => item.bookId === id);
         setNum(filteredReports.length);

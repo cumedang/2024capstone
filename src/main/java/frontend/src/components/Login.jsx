@@ -28,13 +28,15 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
         password: pw
       })
       .then((res) => {
-        if (res.data.success) {
-          console.log(res.data);
+        console.log(res.data);
+        if (res.data.successdto) {
+          console.log(res.data.accessToken);
           console.log("success 완료");
-          setCookie("Authorization", `${res.data.data.token}`, {
+          setCookie("Authorization", `${res.data.accessToken}`, {
             path: "/",
             secure: true,
           });
+          localStorage.setItem('userId', id);
           alert("로그인에 성공했습니다.");
           onLoginSuccess();
           onClose();

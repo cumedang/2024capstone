@@ -21,7 +21,6 @@ const BookReports = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const token = getCookie("name");
     axios.get(`http://localhost:8000/books/${id}`).then((res) => {
       setTitle(res.data.title);
       setAuthor(res.data.author);
@@ -29,14 +28,19 @@ const BookReports = () => {
   }, []);
 
   useEffect(() => {
-    const token = getCookie("name");
+    const userId = localStorage.getItem('userId');
+    console.log(userId);
+    const token = getCookie("Authorization");
     axios.get(`http://3.39.223.205/profile`, {
+      params: {
+        id: userId
+      },
       headers: {
         'Authorization': `Bearer ${token}`
       }
     }).then((res) => {
       console.log(res.data)
-      setName()
+      setName(res.name)
     })
   }, [])
 
