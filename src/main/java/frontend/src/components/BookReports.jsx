@@ -1,7 +1,7 @@
 import styles from "../styles/components/BookReports.module.css";
 import { Navigate, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios, { AxiosError } from "axios";
 import { setCookie, getCookie, removeCookie } from "../utils/cookie";
 
@@ -28,12 +28,10 @@ const BookReports = () => {
   }, []);
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    console.log(userId);
     const token = getCookie("Authorization");
     axios.get(`http://3.39.223.205/profile`, {
       params: {
-        id: userId
+        
       },
       headers: {
         'Authorization': `Bearer ${token}`

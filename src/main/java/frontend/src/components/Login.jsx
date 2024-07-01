@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import {
   IoIosCheckmarkCircle,
   IoIosCheckmarkCircleOutline,
@@ -28,7 +28,7 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
         password: pw
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(id);
         if (res.data.successdto) {
           console.log(res.data.accessToken);
           console.log("success 완료");
@@ -36,7 +36,6 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
             path: "/",
             secure: true,
           });
-          localStorage.setItem('userId', id);
           alert("로그인에 성공했습니다.");
           onLoginSuccess();
           onClose();

@@ -4,9 +4,9 @@ import root from "./router/root";
 
 function App() {
   return (
-    <AuthProvider>
-      <RouterProvider router={root} />
-    </AuthProvider>
+      <AuthProvider>
+        <RouterProvider router={root} />
+      </AuthProvider>
   );
 }
 

@@ -1,7 +1,8 @@
 import styles from "../styles/components/Report.module.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { setCookie, getCookie, removeCookie } from "../utils/cookie";
 
 const BookReports = () => {
   const [title, setTitle] = useState("");
@@ -24,12 +25,17 @@ const BookReports = () => {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/BookReports/${id}`).then((res) => {
+    const token = getCookie("Authorization");
+    axios.get(`http://3.39.223.205/bookreport/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((res) => {
       setPlotSummaryInput(res.data.description);
-      setImpressionInput(res.data.Reviews);
-      setMemorableQuoteInput(res.data.Paragraph);
+      setImpressionInput(res.data.reviews);
+      setMemorableQuoteInput(res.data.paragraph);
       setBookId(res.data.bookId);
-      setAuthor(res.data.Writer);
+      setAuthor(res.data.writer);
     });
   }, [id]);
 
@@ -50,19 +56,47 @@ const BookReports = () => {
   };
 
   const complete = () => {
-    axios.get(`http://localhost:8000/BookReports/${id}`).then((res) => {
+    const token = getCookie("Authorization");
+    axios.get(`http://3.39.223.205/bookreport/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((res) => {
       const existingData = res.data;
       const updatedData = {
         ...existingData,
         description: plotSummaryInput,
-        Reviews: impressionInput,
-        Paragraph: memorableQuoteInput
+        reviews: impressionInput,
+        paragraph: memorableQuoteInput
       };
-      axios.put(`http://localhost:8000/BookReports/${id}`, updatedData);
+      console.log(updatedData);
+      axios.post(`http://3.39.223.205/bookreport/update`, updatedData ,{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
     });
-    window.location.reload();
+    navigate(-1);
   };
 
+  const deleteList = () => {
+    if(window.confirm("삭제 하시겠습니까?")){
+      Delete()
+    }
+  }
+
+  const Delete = () => {
+    const token = getCookie("Authorization");
+    axios.post(`http://3.39.223.205//bookreport/delete`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    },{
+      id
+    })
+    navigate(-1);
+  }
+  
   useEffect(()=>{
     console.log(plotSummaryInput)
   },[plotSummaryInput])
@@ -138,7 +172,10 @@ const BookReports = () => {
           </div>
           <div className={styles.ButtonContainer}>
             {isEditable ? (
-              <button className={styles.Button2} onClick={complete}>완료</button>
+              <>
+                <button className={styles.Button2} onClick={deleteList}>삭제</button>
+                <button className={styles.Button2} onClick={complete}>완료</button>
+              </>
             ) : (
               <>
                 <button className={styles.Button2} onClick={edit}>수정</button>

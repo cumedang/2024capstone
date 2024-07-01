@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const handleLogout = () => {
+    removeCookie("Authorization");
     removeCookie("authToken");
     setIsLogin(false);
   };
