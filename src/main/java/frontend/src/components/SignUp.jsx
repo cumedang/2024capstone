@@ -6,6 +6,7 @@ import {
 } from "react-icons/io";
 import styles from "../styles/components/SignUp.module.css";
 import axios from "axios";
+import { setCookie, getCookie, removeCookie } from "../utils/cookie";
 
 const SignUp = ({ onClose }) => {
   const [id, setId] = useState("");

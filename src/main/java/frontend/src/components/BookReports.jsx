@@ -40,7 +40,7 @@ const BookReports = () => {
       }
     }).then((res) => {
       console.log(res.data)
-      setName(res.name)
+      setName(res.data.name);
     })
   }, [])
 
@@ -48,7 +48,7 @@ const BookReports = () => {
     const report = {
       no: Date.now().toString(),
       bookId: id,
-      writer: "사용자",
+      writer: name,
       likes: 0,
       description: plotSummaryInput,
       reviews: impressionInput,
@@ -56,8 +56,12 @@ const BookReports = () => {
     };
 
     console.log(report)
-
-    axios.post(`http://3.39.223.205/BookReports`, report)
+    const token = getCookie("Authorization");
+    axios.post(`http://3.39.223.205/bookreport`, report, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
     navigate(`/read/${id}`)
   }
 

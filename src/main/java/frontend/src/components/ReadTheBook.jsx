@@ -5,7 +5,6 @@ import { BsChatFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { BiSolidPencil } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
-import Pagination from "../components/Pasing/Pagination";
 import styles from "../styles/components/ReadTheBook.module.css";
 import { setCookie, getCookie, removeCookie } from "../utils/cookie";
 
@@ -23,6 +22,9 @@ const ReadTheBook = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalPage, setTotalPages] = useState(0);
 
   const categoryColors = {
     총류: "#ff0000",
@@ -37,7 +39,8 @@ const ReadTheBook = () => {
     역사: "#8cd139",
   };
 
-  const handleKeyPress = (event) => {
+
+  const handleKeyPress = (event) => {   
     if (event.key === "Enter") {
       handleSearch();
     }
@@ -60,7 +63,7 @@ const ReadTheBook = () => {
           alert("검색된 내용이 없습니다.");
         } else {
           setSearchResults(filteredReports);
-          setCurrentPage(1); // 검색 결과를 보여줄 때 첫 페이지로 초기화
+          setCurrentPage(1);
         }
       })
       .catch((error) => {
@@ -80,22 +83,31 @@ const ReadTheBook = () => {
   }, [id]);
 
   useEffect(() => {
-    const token = getCookie("Authorization");
-    axios
-      .get(`http://3.39.223.205/reportlist`, {
-        headers: {
-          'Authorization': `Bearer ${token}`  
-        }
-      })
-      .then((res) => {
-        const filteredReports = res.data.filter((item) => item.bookId === id);
-        setNum(filteredReports.length);
-        setReport(filteredReports);
-      })
-      .catch((error) => {
-        console.error("독후감 불러오기 오류:", error);
-      });
-  }, [id]);
+    fetchData(page);
+  }, [page]);
+
+
+  const fetchData = async (page) => {
+      console.log(page)
+      const token = getCookie("Authorization");
+      axios
+        .get(`http://3.39.223.205/reportlist?page=${page}&size=20`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then((res) => {
+          console.log(res.data)
+          const filteredReports = res.data.content.filter((item) => item.bookId === id);
+          setNum(filteredReports.length);
+          setData(filteredReports);
+          setTotalPages(res.data.totalPages);
+        })
+        .catch((error) => {
+          console.error("독후감 불러오기 오류:", error);
+        });
+  }
+  
 
   const BookReport = (id) => {
     navigate(`/search/${id}/BookReports`);
@@ -109,11 +121,6 @@ const ReadTheBook = () => {
     setCurrentPage(page);
   };
 
-  const displayedReports = showReport ? report : searchResults;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentReports = displayedReports.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(displayedReports.length / itemsPerPage);
 
   return (
     <>
@@ -181,10 +188,10 @@ const ReadTheBook = () => {
             </div>
           </div>
           <div className={styles.ReviewContainer}>
-            {currentReports.map(report => (
-              <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.id)}>
+            {data.map(report => (
+              <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.no)}>
                 <div className={styles.flexContainer}>
-                  <div className={styles.ReportWriter}>{report.Writer}</div>
+                  <div className={styles.ReportWriter}>{report.writer}</div>
                   <div className={styles.likesContainer}>
                     <AiOutlineLike className={styles.likesicon} />
                     <div className={styles.likesicon1}>{report.likes}</div>
@@ -196,13 +203,9 @@ const ReadTheBook = () => {
               </div>
             ))}
           </div>
-          <Pagination
-            totalItems={displayedReports.length}
-            itemCountPerPage={itemsPerPage}
-            pageCount={5}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
+          <button onClick={() => setPage(page - 1)} disabled={page === 0}>Previous</button>
+          <span>Page {page + 1} of {totalPage}</span>
+          <button onClick={() => setPage(page + 1)} disabled={page + 1 >= totalPage}>Next</button>
         </div>
       </div>
     </>
