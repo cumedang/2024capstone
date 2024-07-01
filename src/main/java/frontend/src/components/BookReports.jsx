@@ -15,10 +15,14 @@ const BookReports = () => {
   const [impressionInput, setImpressionInput] = useState("");
   const [memorableQuoteInput, setMemorableQuoteInput] = useState("");
   const [name, setName] = useState("");
-    
+  const [no, getNo] = useState("");
+  const [userId, getUserId] = useState("");
+
   const navigate = useNavigate();
   
   const { id } = useParams();
+
+  const user = localStorage.getItem("")
 
   useEffect(() => {
     axios.get(`http://localhost:8000/books/${id}`).then((res) => {
@@ -30,9 +34,6 @@ const BookReports = () => {
   useEffect(() => {
     const token = getCookie("Authorization");
     axios.get(`http://3.39.223.205/profile`, {
-      params: {
-        
-      },
       headers: {
         'Authorization': `Bearer ${token}`
       }

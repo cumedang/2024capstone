@@ -31,8 +31,13 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
         console.log(id);
         if (res.data.successdto) {
           console.log(res.data.accessToken);
+          console.log(res.data);
           console.log("success 완료");
           setCookie("Authorization", `${res.data.accessToken}`, {
+            path: "/",
+            secure: true,
+          });
+          setCookie("newAccessToken", `${res.data.refreshToken}`, {
             path: "/",
             secure: true,
           });

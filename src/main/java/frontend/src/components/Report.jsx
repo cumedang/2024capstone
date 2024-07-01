@@ -15,7 +15,9 @@ const BookReports = () => {
   const [memorableQuoteInput, setMemorableQuoteInput] = useState("");
   const [isEditable, setIsEditable] = useState(false);
   const [bookId, setBookId] = useState("");
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState("");
+  const [bid, getBid] = useState("");
+  const [userId, getUserId] = useState("");
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -26,11 +28,24 @@ const BookReports = () => {
 
   useEffect(() => {
     const token = getCookie("Authorization");
+    axios.get(`http://3.39.223.205/profile`,{
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((res) => {
+      getUserId(res.data.id);
+      console.log(res.data.id);
+    })
+  })
+
+  useEffect(() => {
+    const token = getCookie("Authorization");
     axios.get(`http://3.39.223.205/bookreport/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     }).then((res) => {
+      getBid(res.data.no)
       setPlotSummaryInput(res.data.description);
       setImpressionInput(res.data.reviews);
       setMemorableQuoteInput(res.data.paragraph);
@@ -81,7 +96,7 @@ const BookReports = () => {
 
   const deleteList = () => {
     if(window.confirm("삭제 하시겠습니까?")){
-      Delete()
+      Delete();
     }
   }
 
@@ -92,9 +107,9 @@ const BookReports = () => {
         'Authorization': `Bearer ${token}`
       },
     },{
-      id
+      id: bid,
+      userId: userId
     })
-    navigate(-1);
   }
   
   useEffect(()=>{
