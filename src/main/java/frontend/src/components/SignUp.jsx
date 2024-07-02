@@ -14,6 +14,8 @@ const SignUp = ({ onClose }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [usernm, setUsernm] = useState("");
   const [mail, setMail] = useState("");
+  const [view, setView] = useState(false);
+  const [code, setCode] = useState("");
 
   const [idValid, setIdValid] = useState({
     lengthValid: false,
@@ -69,6 +71,7 @@ const SignUp = ({ onClose }) => {
         .post(`http://3.39.223.205/mailsend`, { email })
         .then(() => {
           alert("인증메일이 발송되었습니다. 이메일을 확인해주세요.");
+          setView(true)
         })
         .catch((err) => {
           console.error("인증메일 발송에 실패했습니다.", err);
@@ -90,19 +93,23 @@ const SignUp = ({ onClose }) => {
 
   const compltBtn = () => {
     axios
-      .post(`http://3.39.223.205/signup`, {
+      .post(`http://3.39.223.205/sign`, {
         name: usernm,
         id: id,
         password: password,
         email: mail,
       })
-      .then(() => {
-        alert("회원가입이 완료되었습니다.");
-        navigate("/");
+      .then((response) => {
+        if (response.data.success) {
+          alert("회원가입이 완료되었습니다.");
+          window.location.reload();
+        } else {
+          alert("아이디 또는 이름이 중복되었습니다. 다시 시도해주세요.");
+        }
       })
       .catch((err) => {
         console.log("회원가입 실패.", err);
-        alert("회원가입 증 오류가 발생했습니다. 다시 시도해주세요.");
+        alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
       });
   };
 
@@ -113,6 +120,17 @@ const SignUp = ({ onClose }) => {
   const handleModalClick = (e) => {
     e.stopPropagation();
   };
+
+  const mailsendCheck = (code) => {
+    const mail1 = {
+      email: mail,
+      authNum: code
+    }
+    axios.post(`http://3.39.223.205/mailcheck`, mail1)
+    .then((res) => {
+      alert("인증 완료");
+    })
+  }
 
   return (
     <div className={styles.align} onClick={handleClose}>
@@ -159,6 +177,18 @@ const SignUp = ({ onClose }) => {
                   인증메일 발송
                 </button>
               </div>
+              {view && (
+                  <div className={styles.verifyEmail}>
+                  <input
+                    placeholder="인증코드"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                  />
+                  <button onClick={() => mailsendCheck(code)}>
+                    인증코드 확인
+                  </button>
+                </div>
+              )}   
             </div>
             <div className={styles.vaildCheckContainer}>
               <div className={styles.validCheck}>

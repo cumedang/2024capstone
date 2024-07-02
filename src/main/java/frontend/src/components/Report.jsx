@@ -33,8 +33,8 @@ const BookReports = () => {
         'Authorization': `Bearer ${token}`
       }
     }).then((res) => {
-      getUserId(res.data.id);
-      console.log(res.data.id);
+      getUserId(res.data.name);
+      console.log(res.data.name);
     })
   })
 
@@ -45,7 +45,8 @@ const BookReports = () => {
         'Authorization': `Bearer ${token}`
       }
     }).then((res) => {
-      getBid(res.data.no)
+      getBid(res.data.no);
+      console.log(res.data.no);
       setPlotSummaryInput(res.data.description);
       setImpressionInput(res.data.reviews);
       setMemorableQuoteInput(res.data.paragraph);
@@ -101,15 +102,19 @@ const BookReports = () => {
   }
 
   const Delete = () => {
-    const token = getCookie("Authorization");
-    axios.post(`http://3.39.223.205//bookreport/delete`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-    },{
+    const Data = {
       id: bid,
       userId: userId
-    })
+    };
+    const token = getCookie("Authorization");
+    axios.post(`http://3.39.223.205/bookreport/delete`, Data, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+  ).then((res) => {
+    navigate(-1);
+  })
   }
   
   useEffect(()=>{
