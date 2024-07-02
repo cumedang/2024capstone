@@ -23,6 +23,7 @@ public class BookReportController {
     }
     @PostMapping("/bookreport/delete")
     public Successdto deleteBookReport(@RequestBody ModifyDto dto) {
+        System.out.println(dto);
         return bookReportService.deleteBookReport(dto);
     }
 
@@ -36,8 +37,15 @@ public class BookReportController {
         return bookReportService.getBookReport(no);
     }
 
-    @GetMapping("/booklist")
+    @GetMapping("/reportlist")
     public Page<BookListDto> bookList(Pageable pageable) {
         return bookReportService.getBookList(pageable);
     }
+
+    @GetMapping("/bookreport/select/{userid}")
+    public Page<BookListDto> selectBookList(@PathVariable("userid") String userid,Pageable pageable) {
+        System.out.println(userid);
+        return bookReportService.selectGetBookLIst(userid,pageable);
+    }
+
 }

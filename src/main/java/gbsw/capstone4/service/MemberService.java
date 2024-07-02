@@ -48,14 +48,16 @@ public class MemberService {
     public Successdto signService(SignDto signdto) {
         Successdto suceessdto = new Successdto();
         suceessdto.setSuccess(false);
+        System.out.println(signdto.getPassword());
         if(findByid(signdto.getId())) {
             if(findByName(signdto.getName())) {
                 String hashedPassword = BCrypt.hashpw(signdto.getPassword(), BCrypt.gensalt());
                 signdto.setPassword(hashedPassword);
+                signdto.setGrade("F");
                 SignDto saveDto = signReposirtory.save(signdto);
                 if(saveDto != null) {
                     suceessdto.setSuccess(true);
-                    entityManager.createNativeQuery("CREATE TABLE " + signdto.getId() + " (id INT AUTO_INCREMENT PRIMARY KEY, likename VARCHAR(255), likebook VARCHAR(255))").executeUpdate();
+                    entityManager.createNativeQuery("CREATE TABLE " + signdto.getId() + " (id INT AUTO_INCREMENT PRIMARY KEY, likename VARCHAR(255), likebook VARCHAR(255),point INT)").executeUpdate();
                     return suceessdto;
                 }else {
                     return suceessdto;
@@ -84,6 +86,11 @@ public class MemberService {
             return true;
         }
         return false;
+    }
+
+    public Optional<SignDto> ProFileService(String id) {
+        Optional<SignDto> byId = signReposirtory.findById(id);
+        return byId;
     }
 
 }

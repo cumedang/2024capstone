@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookListRepository extends JpaRepository<BookReportDto, String> {
     Page<BookListDto> findAllBy(Pageable pageable);
+
+    Page<BookListDto> findAllByWriter(String userid,Pageable pageable);
 }

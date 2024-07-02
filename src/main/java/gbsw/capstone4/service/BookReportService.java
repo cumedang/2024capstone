@@ -91,4 +91,8 @@ public class BookReportService {
     public Page<BookListDto> getBookList(Pageable pageable) {
         return bookListRepository.findAllBy(pageable);
     }
+    public Page<BookListDto> selectGetBookLIst(String userid,Pageable pageable) {
+        Page<BookListDto> allByWriter = bookListRepository.findAllByWriter(userid, pageable);
+        return allByWriter;
+    }
 }
