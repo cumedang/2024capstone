@@ -1,6 +1,5 @@
 package gbsw.capstone4.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -8,21 +7,24 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Date;
+
 @ToString
 @Getter
 @Setter
 @Entity
-@Table(name = "pointshop")
-public class PointShopdto {
+@Table(name = "buylist")
+public class BuyListDto {
     @Id
-    private int id;
+    private int buyid;
 
-    @Column
-    private String name;
+    private String userid;
 
-    @Column
-    private String category;
-
-    @Column
     private int price;
+
+    private String itemname;
+
+    private Date buydate;
+
+    private String category;
 }

@@ -31,4 +31,6 @@ public class SignDto {
     @ColumnDefault("F")
     private String grade;
 
+    private int point;
+
 }

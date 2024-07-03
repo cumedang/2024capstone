@@ -6,6 +6,8 @@ import gbsw.capstone4.repository.BookReportRepository;
 import gbsw.capstone4.repository.SignReposirtory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
