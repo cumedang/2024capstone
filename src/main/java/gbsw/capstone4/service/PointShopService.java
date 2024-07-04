@@ -68,4 +68,8 @@ public class PointShopService {
             return successdto;
         }
     }
+    public List<PointShopdto> selectPointListService(String name) {
+        return pointShopRepository.findAllByNameContains(name);
+    }
+
 }

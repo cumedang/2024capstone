@@ -24,4 +24,9 @@ public class PointShopController {
     public Successdto buyPointshop(@RequestHeader("Authorization") String token,@PathVariable("id") int id) {
         return pointShopService.buyPointShopService(token,id);
     }
+
+    @GetMapping("/poinshop/select/{name}")
+    public List<PointShopdto> selectPointList(@PathVariable("name") String id) {
+        return pointShopService.selectPointListService(id);
+    }
 }

@@ -19,4 +19,6 @@ public interface PointShopRepository extends JpaRepository<PointShopdto, Integer
     String findNameById(@Param("id") int id);
     @Query("SELECT s.category FROM PointShopdto s WHERE s.id = :id")
     String findCategoryById(@Param("id") int id);
+
+    List<PointShopdto> findAllByNameContains(String name);
 }

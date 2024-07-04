@@ -48,7 +48,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/sign", "/", "/login", "/css/**", "/js/**", "/img/**", "/exception/**", "/favicon.ico", "parts/header.html","/swagger-ui/index.html","/swagger-ui/**","/v3/api-docs/**","/mailsend","/mailcheck","/refresh").permitAll()
-                                .requestMatchers("/bookreport","/bookreport/delete","/bookreport/update","/bookreport/","/booklist","/profile","/reportlist","/bookreport/select/","/pointshop/","/pointshop/buy/").hasRole("USER")
+                                .requestMatchers("/bookreport","/bookreport/delete","/bookreport/update","/bookreport/","/booklist","/profile","/reportlist","/bookreport/select/","/pointshop/","/pointshop/buy/","poinshop/select/").hasRole("USER")
                                 .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling ->
