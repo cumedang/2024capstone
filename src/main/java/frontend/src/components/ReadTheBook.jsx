@@ -19,6 +19,7 @@ const ReadTheBook = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("제목");
   const [keyword, setKeyword] = useState("");
+  const [keyword2, setKeyword2] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -46,30 +47,38 @@ const ReadTheBook = () => {
     }
   };
 
-  const handleSearch = () => {
+  useEffect(() => {
+    if(showReport1 == true){
+      handleSearch(page);
+    }
+  }, [page]);
+
+  const handleSearch = async (page) => {
     setShowReport(false);
     setShowReport1(true);
-    if (!keyword.trim()) {
-      return;
-    }
-    axios
-      .get("http://localhost:8000/BookReports")
+    console.log(page);
+    const encodedKeyword = encodeURIComponent(keyword);
+    const encodedKeyword1 = encodeURIComponent(page);
+    const token = getCookie("Authorization");
+    axios.get(`http://3.39.223.205/bookreport/select/${encodedKeyword}?page=${encodedKeyword1}&size=20`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then((res) => {
-        const results = res.data.filter((book) =>
-          book.Writer.toLowerCase().includes(keyword.toLowerCase())
-        );
-        const filteredReports = results.filter((item) => item.bookId === id);
-        if (filteredReports.length === 0) {
-          alert("검색된 내용이 없습니다.");
-        } else {
-          setSearchResults(filteredReports);
-          setCurrentPage(1);
-        }
+        const filteredReports = res.data.content.filter((item) => item.bookId === id);
+          setNum(filteredReports.length);
+          setSearchResults(filteredReports)
+          setTotalPages(res.data.totalPages);
       })
       .catch((error) => {
         console.error("검색 오류:", error);
       });
   };
+
+  const zero = () => {
+    setPage(0)
+  }
 
   useEffect(() => {
     axios
@@ -83,7 +92,9 @@ const ReadTheBook = () => {
   }, [id]);
 
   useEffect(() => {
-    fetchData(page);
+    if(showReport == true){
+      fetchData(page);
+    }
   }, [page]);
 
 
@@ -175,7 +186,7 @@ const ReadTheBook = () => {
               />
               <button
                 className={styles.searchButton}
-                onClick={handleSearch}
+                onClick={() => {handleSearch(); zero()}}
                 disabled={!keyword}
               >
                 검색
@@ -188,24 +199,49 @@ const ReadTheBook = () => {
             </div>
           </div>
           <div className={styles.ReviewContainer}>
-            {data.map(report => (
-              <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.no)}>
+          {showReport && (
+            <>
+              {data.map(report => (
+                <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.no)}>
                 <div className={styles.flexContainer}>
-                  <div className={styles.ReportWriter}>{report.writer}</div>
-                  <div className={styles.likesContainer}>
-                    <AiOutlineLike className={styles.likesicon} />
-                    <div className={styles.likesicon1}>{report.likes}</div>
-                  </div>
-                </div>
-                <div className={styles.ReportDescription}>
-                  {report.description.length > 172 ? report.description.slice(0, 172) + "..." : report.description || "안떠용"}
-                </div>
+                <div className={styles.ReportWriter}>{report.writer}</div>
+                <div className={styles.likesContainer}>
+                <AiOutlineLike className={styles.likesicon} />
+                <div className={styles.likesicon1}>{report.likes}</div>
               </div>
+            </div>
+              <div className={styles.ReportDescription}>
+                {report.description.length > 172 ? report.description.slice(0, 172) + "..." : report.description || "안떠용"}
+              </div>
+            </div>
             ))}
+            <button onClick={() => setPage(page - 1)} disabled={page === 0}>Previous</button>
+            <span>Page {page + 1} of {totalPage}</span>
+            <button onClick={() => setPage(page + 1)} disabled={page + 1 >= totalPage}>Next</button>
+            </>
+          )}
+          {showReport1 && (
+            <>
+              {searchResults.map(report => (
+                <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.no)}>
+                <div className={styles.flexContainer}>
+                <div className={styles.ReportWriter}>{report.writer}</div>
+                <div className={styles.likesContainer}>
+                <AiOutlineLike className={styles.likesicon} />
+                <div className={styles.likesicon1}>{report.likes}</div>
+              </div>
+            </div>
+              <div className={styles.ReportDescription}>
+                {report.description.length > 172 ? report.description.slice(0, 172) + "..." : report.description || "안떠용"}
+              </div>
+            </div>
+            ))}
+            <button onClick={() => setPage(page - 1)} disabled={page === 0}>Previous</button>
+            <span>Page {page + 1} of {totalPage}</span>
+            <button onClick={() => setPage(page + 1)} disabled={page + 1 >= totalPage}>Next</button>
+            </>
+          )}
           </div>
-          <button onClick={() => setPage(page - 1)} disabled={page === 0}>Previous</button>
-          <span>Page {page + 1} of {totalPage}</span>
-          <button onClick={() => setPage(page + 1)} disabled={page + 1 >= totalPage}>Next</button>
         </div>
       </div>
     </>
