@@ -1,5 +1,6 @@
 package gbsw.capstone4.controller;
 
+import gbsw.capstone4.model.BuyListDto;
 import gbsw.capstone4.model.PointShopdto;
 import gbsw.capstone4.model.Successdto;
 import gbsw.capstone4.service.PointShopService;
@@ -28,5 +29,10 @@ public class PointShopController {
     @GetMapping("/poinshop/select/{name}")
     public List<PointShopdto> selectPointList(@PathVariable("name") String id) {
         return pointShopService.selectPointListService(id);
+    }
+
+    @GetMapping("/buylist")
+    public List<BuyListDto> BuyList(@RequestHeader("Authorization") String token) {
+        return pointShopService.BuuLisyService(token);
     }
 }

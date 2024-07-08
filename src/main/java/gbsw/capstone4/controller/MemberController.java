@@ -8,6 +8,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -39,17 +40,17 @@ public class MemberController {
         TokenDto tokenDto = new TokenDto();
         tokenDto.setAccessToken(accessToken);
         tokenDto.setRefreshToken(refreshToken);
-        if(memberService.loginService(dto).getSuccess().equals(true)) {
-            if(ResponseEntity.ok().equals("")) {
-                suceessdto.setSuccess(false);
-            }else {
-                suceessdto.setSuccess(true);
-            }
+        if (memberService.loginService(dto).getSuccess().equals(true)) {
+            suceessdto.setSuccess(true);
+            tokenDto.setSuccessdto(suceessdto);
+            return ResponseEntity.ok().body(tokenDto);
+        } else {
+            suceessdto.setSuccess(false);
+            tokenDto.setSuccessdto(suceessdto);
+            tokenDto.setRefreshToken(null);
+            tokenDto.setAccessToken(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(tokenDto);
         }
-        tokenDto.setSuccessdto(suceessdto);
-
-
-        return ResponseEntity.ok().body(tokenDto);
     }
 
     @PostMapping("/refresh")

@@ -1,13 +1,13 @@
 package gbsw.capstone4.controller;
 
-import gbsw.capstone4.model.BookListDto;
-import gbsw.capstone4.model.BookReportDto;
-import gbsw.capstone4.model.ModifyDto;
-import gbsw.capstone4.model.Successdto;
+import gbsw.capstone4.model.*;
 import gbsw.capstone4.service.BookReportService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
 @RestController
 public class BookReportController {
 
@@ -18,8 +18,8 @@ public class BookReportController {
     }
 
     @PostMapping("/bookreport")
-    public Successdto bookReport(@RequestBody BookReportDto dto) {
-        return bookReportService.createBoookReport(dto);
+    public Successdto bookReport(@RequestHeader("Authorization") String token,@RequestBody BookReportDto dto) {
+        return bookReportService.createBoookReport(token,dto);
     }
     @PostMapping("/bookreport/delete")
     public Successdto deleteBookReport(@RequestBody ModifyDto dto) {
@@ -48,4 +48,24 @@ public class BookReportController {
         return bookReportService.selectGetBookLIst(userid,pageable);
     }
 
+    @GetMapping("/selectbook/{title}")
+    public BookDto getBookByTitle(@PathVariable String title) {
+        Optional<BookDto> bookOpt = bookReportService.findBookByTitle(title);
+
+        if (bookOpt.isPresent()) {
+            return bookOpt.get();
+        } else {
+            BookDto book = bookReportService.searchBookInAladinApi(title);
+            if (book != null) {
+                return bookReportService.addBook(book);
+            } else {
+                throw new RuntimeException("Book not found");
+            }
+        }
+    }
+
+    @PostMapping("/bookreport/check/{name}")
+    public Successdto checkBookreport(@RequestHeader("Authorization") String token,@PathVariable("name") String bookname) {
+        return bookReportService.checkeBookreportService(token,bookname);
+    }
 }

@@ -25,4 +25,7 @@ public class PointShopdto {
 
     @Column
     private int price;
+
+    @Column
+    private String photolink;
 }

@@ -72,4 +72,10 @@ public class PointShopService {
         return pointShopRepository.findAllByNameContains(name);
     }
 
+    public List<BuyListDto> BuuLisyService(String token) {
+        String tokenValue = token.substring(7);
+        String userid = jwtTokenProvider.getUsername(tokenValue);
+        return buyListRepository.findAllByUserid(userid);
+    }
+
 }
