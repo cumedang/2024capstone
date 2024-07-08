@@ -11,6 +11,7 @@ const Shop = () => {
   const [profile, setProfile] = useState({ point: 0 });
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
   const [searchItem, setSearchItem] = useState([]);
 
   useEffect(() => {
@@ -48,6 +49,7 @@ const Shop = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setSelectedItem(null);
   };
 
   const search = () => {
@@ -62,20 +64,48 @@ const Shop = () => {
     })
   }
 
-  const Modal = ({ closeModal }) => {
+  const openPurchaseModal = (item) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+  };
+
+  const PurchaseModal = ({ item, closeModal }) => {
+    return (
+      <div className={styles.modalOverlay} onClick={closeModal}>
+        <div className={styles.modalContent1} onClick={(e) => e.stopPropagation()}>
+          <h2 className={styles.searchText1}>구매 확인</h2>
+          <p className={styles.searchText2}>{item.name}번 젤리(을)를 {item.price} 포인트에 구매할까요? </p>
+          <button onClick={() => {closeModal(); }} className={styles.back}>취소</button>
+          <button onClick={() => {closeModal(); itemBuy(item.id)}} className={styles.buy}>구매 완료</button>
+        </div>
+      </div>
+    );
+  };
+
+  const itemBuy = (id) => {
+    const token = getCookie("Authorization");
+    console.log(id)
+    axios.post(`http://3.39.223.205/pointshop/buy/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  }
+
+  const SearchResultModal = ({ closeModal }) => {
     return (
       <div className={styles.modalOverlay} onClick={closeModal}>
         <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
           <h2 className={styles.searchText}>검색 결과</h2>
           <p className={styles.searchText}>검색어: {searchTerm}</p>
           {searchItem.map(item => (
-            <div key={item.id} className={styles.searchContainer}>
-              <div className={styles.imgContainer}><img src={item.photolink} className={styles.searchImg}></img></div>
-                <div className={styles.cContainer}>
-                  <div className={styles.searchItemName}>{item.name}번 젤리</div>
-                  <div className={styles.searchItemCategory}>{item.category}번 카테고리</div>
-                </div>
-                <div className={styles.view1}><div className={styles.view}><div className={styles.icon1}><MdLocalParking className={styles.Micon1}/></div>{item.price}</div></div>
+            <div key={item.id} className={styles.searchContainer} onClick={() => openPurchaseModal(item)}>
+              <div className={styles.imgContainer}><img src={item.photolink} className={styles.searchImg} alt={item.name}/></div>
+              <div className={styles.cContainer}>
+                <div className={styles.searchItemName}>{item.name}번 젤리</div>
+                <div className={styles.searchItemCategory}>{item.category}번 카테고리</div>
+              </div>
+              <div className={styles.view1}><div className={styles.view}><div className={styles.icon1}><MdLocalParking className={styles.Micon1}/></div>{item.price}</div></div>
             </div>
           ))}
         </div>
@@ -111,7 +141,7 @@ const Shop = () => {
         </div>
         <div className={styles.itembox}>
           {itemList.map(item => (
-            <div key={item.id} className={styles.mapContainer}>
+            <div key={item.id} className={styles.mapContainer} onClick={() => openPurchaseModal(item)}>
               <div className={styles.itemImg}><img src={item.photolink} className={styles.iImg} alt={item.name}/></div>
               <div className={styles.itemName}>{item.name}번 젤리</div>
               <div className={styles.mapContainer1}>
@@ -121,7 +151,7 @@ const Shop = () => {
           ))}
         </div>
       </div>
-      {isModalOpen && <Modal closeModal={closeModal} />}
+      {isModalOpen && (selectedItem ? <PurchaseModal item={selectedItem} closeModal={closeModal} /> : <SearchResultModal closeModal={closeModal} />)}
     </div>
   );
 };

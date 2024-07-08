@@ -26,6 +26,7 @@ const ReadTheBook = () => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPage, setTotalPages] = useState(0);
+  const [name, setName] = useState("");
 
   const categoryColors = {
     총류: "#ff0000",
@@ -42,6 +43,7 @@ const ReadTheBook = () => {
 
 
   const handleKeyPress = (event) => {   
+    zero();
     if (event.key === "Enter") {
       handleSearch();
     }
@@ -131,7 +133,23 @@ const ReadTheBook = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+  
+  useEffect(() => {
+    const token = getCookie("Authorization");
+    axios.get('http://3.39.223.205/profile', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((res) => {
+      setName(res.data.name)
+    })
+  },[])
 
+  const chatIn = () => {
+    navigate(`/chatrooms?name=${name}&room=${results.id}`);
+  }
+
+  
 
   return (
     <>
@@ -169,7 +187,7 @@ const ReadTheBook = () => {
           </div>
         </div>
         <div className={styles.line}></div>
-        <div className={styles.chatButton}>
+        <div className={styles.chatButton} onClick={() => {chatIn()}}>
           <div className={styles.buttonText}>채팅방 가입하기</div>
           <div className={styles.buttonicon}><BsChatFill /></div>
         </div>
