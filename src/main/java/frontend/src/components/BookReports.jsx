@@ -1,8 +1,9 @@
 import styles from "../styles/components/BookReports.module.css";
 import { Navigate, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios, { AxiosError } from "axios";
+import { setCookie, getCookie, removeCookie } from "../utils/cookie";
 
 const BookReports = () => {
   const [title, setTitle] = useState("");
@@ -13,9 +14,15 @@ const BookReports = () => {
   const [plotSummaryInput, setPlotSummaryInput] = useState("");
   const [impressionInput, setImpressionInput] = useState("");
   const [memorableQuoteInput, setMemorableQuoteInput] = useState("");
+  const [name, setName] = useState("");
+  const [no, getNo] = useState("");
+  const [userId, getUserId] = useState("");
+
   const navigate = useNavigate();
   
   const { id } = useParams();
+
+  const user = localStorage.getItem("")
 
   useEffect(() => {
     axios.get(`http://localhost:8000/books/${id}`).then((res) => {
@@ -24,11 +31,27 @@ const BookReports = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const token = getCookie("Authorization");
+    axios.get(`http://3.39.223.205/profile`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((res) => {
+      console.log(res.data)
+      setName(res.data.name);
+    })
+  }, [])
+
   const Submit = () => {
     const report = {
       no: Date.now().toString(),
       bookId: id,
+
+      writer: name,
+
       writer: "사용자",
+
       likes: 0,
       description: plotSummaryInput,
       reviews: impressionInput,
@@ -37,7 +60,16 @@ const BookReports = () => {
 
     console.log(report)
 
+    const token = getCookie("Authorization");
+    axios.post(`http://3.39.223.205/bookreport`, report, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+
     axios.post(`http://localhost:8081/bookreport`, report)
+
     navigate(`/read/${id}`)
   }
 

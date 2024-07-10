@@ -1,14 +1,17 @@
 import { Suspense, lazy } from "react";
-
+import { setCookie, getCookie, removeCookie } from "../utils/cookie";
+import { useState, useEffect } from "react";
+import axios from "axios";
 const { createBrowserRouter } = require("react-router-dom");
 const Loading = <div>Loading...</div>;
 const Main = lazy(() => import("../pages/MainPage"));
-const Search = lazy(() => import("../pages/SearchPage"))
-const BookReports = lazy(() => import("../pages/BookReportsPage"))
-const ChatRooms = lazy(() => import("../pages/ChatPage"))
-const ReadTheBook = lazy(() => import("../pages/ReadPage"))
-const Report = lazy(() => import("../pages/ReportPage"))
-const Join = lazy(() => import("../components/Chat/Join")) 
+const Search = lazy(() => import("../pages/SearchPage"));
+const BookReports = lazy(() => import("../pages/BookReportsPage"));
+const ChatRooms = lazy(() => import("../pages/ChatPage"));
+const ReadTheBook = lazy(() => import("../pages/ReadPage"));
+const Report = lazy(() => import("../pages/ReportPage"));
+const Join = lazy(() => import("../components/Chat/Join"));
+const Shop = lazy(() => import("../pages/PointShopPage"));
 
 const root = createBrowserRouter([
   {
@@ -58,14 +61,23 @@ const root = createBrowserRouter([
         <Report />
       </Suspense>
     ),
-  },{
+  },
+  {
     path: `/join`,
     element: (
       <Suspense fallback={Loading}>
         <Join />
       </Suspense>
     ),
-  }
+  },
+  {
+    path: `/shop`,
+    element: (
+      <Suspense fallback={Loading}>
+        <Shop />
+      </Suspense>
+    ),
+  },
 ]);
 
 export default root;

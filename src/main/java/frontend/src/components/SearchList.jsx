@@ -16,6 +16,14 @@ const SearchList = () => {
   const clickBoxRef = useRef(null);
   const navigate = useNavigate();
 
+  //useEffect(() => {
+    //const key = "ttbkimsunghoon1221703002";
+    //axios.get(`http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=${key}&QueryType=ItemNewAll&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101`)
+    //.than((res) => {
+      //console.log(res.data);
+    //})
+  //})
+
   useEffect(() => {
     axios.get(`http://localhost:8000/books`).then((res) => {
       setData(res.data);
