@@ -7,7 +7,7 @@ const Session1 = () => {
   return (
     <div className={styles.center}>
       <div className={styles.inner}>
-        <span className={styles.subtitle}>독서 커뮤니티 사이트 READNET</span>
+        <span className={styles.subtitle}>대한민국 No.1 독서 플랫폼</span>
         <span className={styles.title}>WELCOME TO READNET!</span>
         <span className={styles.descript}>
           다양한 책을 읽고 독후감을 작성하며, 다른 독자들과 의견을 나눌 수

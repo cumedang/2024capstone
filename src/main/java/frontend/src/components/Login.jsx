@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import {
   IoIosCheckmarkCircle,
   IoIosCheckmarkCircleOutline,
@@ -7,14 +7,50 @@ import styles from "../styles/components/Login.module.css";
 import kakaoImg from "../img/kakao.png";
 import naverImg from "../img/naver.png";
 import axios from "axios";
+import { setCookie } from "../utils/cookie";
 
-const Login = ({ onClose, onSignUp }) => {
+const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
   const [saveInfo, setSaveInfo] = useState(false);
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
-  const submit = (e) => {
-    e.preventDefault();
+  const submit = (event) => {
+    event.preventDefault();
+
+
+    if (!id || !pw) {
+      alert("아이디와 비밀번호를 입력해주세요.");
+      return;
+    }
+
+    axios
+      .post(`http://3.39.223.205/login`, {
+        id: id,
+        password: pw
+      })
+      .then((res) => {
+        console.log(id);
+        if (res.data.successdto) {
+          console.log(res.data.accessToken);
+          console.log(res.data);
+          console.log("success 완료");
+          setCookie("Authorization", `${res.data.accessToken}`, {
+            path: "/",
+            secure: true,
+          });
+          setCookie("newAccessToken", `${res.data.refreshToken}`, {
+            path: "/",
+            secure: true,
+          });
+          alert("로그인에 성공했습니다.");
+          onLoginSuccess();
+          onClose();
+        }
+      })
+      .catch((err) => {
+        console.error("로그인 실패.", err);
+        alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+      });
 
     axios
        .post(`http://localhost:8081/login`, {
@@ -34,6 +70,7 @@ const Login = ({ onClose, onSignUp }) => {
          console.log(err);
          alert("로그인 실패");
        });
+
   };
 
   const toggleSaveInfo = () => {
