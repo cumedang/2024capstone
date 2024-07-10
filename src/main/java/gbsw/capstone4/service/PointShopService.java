@@ -37,6 +37,16 @@ public class PointShopService {
         return pointShopRepository.findAllByCategory(category);
     }
 
+    public List<PointShopdto> selectPointListService(String name) {
+        return pointShopRepository.findAllByNameContains(name);
+    }
+
+    public List<BuyListDto> buuLisyService(String token) {
+        String tokenValue = token.substring(7);
+        String userid = jwtTokenProvider.getUsername(tokenValue);
+        return buyListRepository.findAllByUserid(userid);
+    }
+
     public Successdto buyPointShopService(String token,int id) {
         Successdto successdto = new Successdto();
         BuyListDto buyListDto = new BuyListDto();
@@ -68,14 +78,4 @@ public class PointShopService {
             return successdto;
         }
     }
-    public List<PointShopdto> selectPointListService(String name) {
-        return pointShopRepository.findAllByNameContains(name);
-    }
-
-    public List<BuyListDto> BuuLisyService(String token) {
-        String tokenValue = token.substring(7);
-        String userid = jwtTokenProvider.getUsername(tokenValue);
-        return buyListRepository.findAllByUserid(userid);
-    }
-
 }
