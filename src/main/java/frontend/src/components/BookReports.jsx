@@ -47,7 +47,11 @@ const BookReports = () => {
     const report = {
       no: Date.now().toString(),
       bookId: id,
+
       writer: name,
+
+      writer: "사용자",
+
       likes: 0,
       description: plotSummaryInput,
       reviews: impressionInput,
@@ -55,12 +59,17 @@ const BookReports = () => {
     };
 
     console.log(report)
+
     const token = getCookie("Authorization");
     axios.post(`http://3.39.223.205/bookreport`, report, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     })
+
+
+    axios.post(`http://localhost:8081/bookreport`, report)
+
     navigate(`/read/${id}`)
   }
 

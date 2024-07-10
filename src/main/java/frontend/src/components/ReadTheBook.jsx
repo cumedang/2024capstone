@@ -84,9 +84,18 @@ const ReadTheBook = () => {
 
   useEffect(() => {
     axios
+
       .get(`http://localhost:8000/books/${id}`)
       .then((res) => {
         setResults(res.data);
+
+      .get(`http://localhost:8081/booklist`)
+      .then((res) => {
+        console.log(res.data)
+        const filteredReports = res.data.content.filter((item) => item.bookId === id);
+        setNum(filteredReports.length);
+        setReport(res.data.content);
+
       })
       .catch((error) => {
         console.error("책 정보 불러오기 오류:", error);
@@ -217,6 +226,7 @@ const ReadTheBook = () => {
             </div>
           </div>
           <div className={styles.ReviewContainer}>
+
           {showReport && (
             <>
               {data.map(report => (
@@ -260,6 +270,29 @@ const ReadTheBook = () => {
             </>
           )}
           </div>
+
+  {swowReport && filteredReports.map(report => (
+    <div className={styles.WriterContainer} key={report.no} onClick={() => read(report.no)}>
+      <div className={styles.flexContainer}>
+        <div className={styles.ReportWriter}>{report.writer}</div>
+        <div className={styles.likesContainer}>
+          <AiOutlineLike className={styles.likesicon} />
+          <div className={styles.likesicon1}>{report.likes}</div>
+        </div>
+      </div>
+      <div className={styles.ReportDescription}>
+        {report.description.length > 172 ? report.description.slice(0, 172) + "..." : report.description || "안떠용"}
+      </div>
+    </div>
+  ))}
+  {swowReport1 && searchResults.map(report => (
+    <div className={styles.WriterContainer} key={report.id} onClick={() => read(report.id)}>
+      <div className={styles.flexContainer}>
+        <div className={styles.ReportWriter}>{report.Writer}</div>
+        <div className={styles.likesContainer}>
+          <AiOutlineLike className={styles.likesicon} />
+          <div className={styles.likesicon1}>{report.likes}</div>
+
         </div>
       </div>
     </>

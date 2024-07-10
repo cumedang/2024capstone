@@ -17,6 +17,7 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
   const submit = (event) => {
     event.preventDefault();
 
+
     if (!id || !pw) {
       alert("아이디와 비밀번호를 입력해주세요.");
       return;
@@ -50,6 +51,26 @@ const Login = ({ onClose, onSignUp, onLoginSuccess }) => {
         console.error("로그인 실패.", err);
         alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
       });
+
+    axios
+       .post(`http://localhost:8081/login`, {
+         id: id,
+         password: pw,
+       })
+       .then((res) => {
+         console.log(id)
+         if (res.data.success) {
+           console.log("로그인 성공");
+           alert("로그인 성공");
+         } else {
+           alert("로그인 실패");
+         }
+       })
+       .catch((err) => {
+         console.log(err);
+         alert("로그인 실패");
+       });
+
   };
 
   const toggleSaveInfo = () => {

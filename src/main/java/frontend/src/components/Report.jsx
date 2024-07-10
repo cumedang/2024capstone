@@ -39,6 +39,7 @@ const BookReports = () => {
   })
 
   useEffect(() => {
+
     const token = getCookie("Authorization");
     axios.get(`http://3.39.223.205/bookreport/${id}`, {
       headers: {
@@ -51,11 +52,19 @@ const BookReports = () => {
       setImpressionInput(res.data.reviews);
       setMemorableQuoteInput(res.data.paragraph);
       setBookId(res.data.bookId);
+
+    axios.get(`http://localhost:8081/bookreport/${id}`).then((res) => {
+      setPlotSummaryInput(res.data.description)
+      setImpressionInput(res.data.reviews)
+      setMemorableQuoteInput(res.data.paragraph)
+      setBookId(res.data.bookId)
+
       setAuthor(res.data.writer);
     });
   }, [id]);
 
   useEffect(() => {
+
     if (bookId) {
       axios.get(`http://localhost:8000/books/${bookId}`).then((res) => {
         setTitle(res.data.title);
@@ -91,6 +100,11 @@ const BookReports = () => {
           'Authorization': `Bearer ${token}`
         }
       });
+
+    axios.get(`http://localhost:8000/books/${bookId}`).then((res) => {
+      console.log(res.data)
+      setTitle(res.data.title);
+
     });
     navigate(-1);
   };
@@ -125,9 +139,16 @@ const BookReports = () => {
     console.log(memorableQuoteInput)
   },[memorableQuoteInput])
 
+
   useEffect(()=>{
     console.log(impressionInput)
   },[impressionInput])
+
+  const Submit2 = () => {
+    axios.post(`http://localhost:8081/delete`, );
+  }
+
+
 
   return (
     <>
@@ -191,6 +212,7 @@ const BookReports = () => {
             </div>
           </div>
           <div className={styles.ButtonContainer}>
+
             {isEditable ? (
               <>
                 <button className={styles.Button2} onClick={deleteList}>삭제</button>
@@ -202,6 +224,10 @@ const BookReports = () => {
                 <button className={styles.Button2} onClick={submit}>돌아가기</button>
               </>
             )}
+
+            <button className={styles.Button2} onClick={() => {Submit2()}}>삭제</button>
+            <button className={styles.Button2} onClick={() => {Submit()}}>돌아가기</button>
+
           </div>
         </div>
       </div>

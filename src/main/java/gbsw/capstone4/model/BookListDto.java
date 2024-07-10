@@ -6,4 +6,8 @@ public interface BookListDto {
     String getDescription();
 
     int getLikes();
+
+    String getBookId();
+
+    String getNo();
 }

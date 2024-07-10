@@ -7,30 +7,25 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.ColumnDefault;
 
 @ToString
 @Getter
 @Setter
 @Entity
-@Table(name = "member")
-public class SignDto {
+@Table(name = "pointshop")
+public class PointShopdto {
     @Id
-    private String id;
-
-    @Column
-    private String password;
+    private int id;
 
     @Column
     private String name;
 
     @Column
-    private String email;
+    private String category;
 
     @Column
-    @ColumnDefault("F")
-    private String grade;
+    private int price;
 
-    private int point;
-
+    @Column
+    private String photolink;
 }
