@@ -58,7 +58,7 @@ const BookReports = () => {
     const token = getCookie("Authorization");
     axios.post(`http://3.39.223.205/bookreport`, report, {
       headers: {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token} `
       }
     })
     navigate(`/read/${id}`)
