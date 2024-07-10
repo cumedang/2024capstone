@@ -69,9 +69,22 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
+    public String getRefresshUsername(String token) {
+        return Jwts.parser().setSigningKey(refreshSecret).parseClaimsJws(token).getBody().getSubject();
+    }
+
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean validateRefreshToken(String refreshToken) {
+        try {
+            Jwts.parser().setSigningKey(refreshSecret).parseClaimsJws(refreshToken);
             return true;
         } catch (Exception e) {
             return false;
@@ -90,7 +103,6 @@ public class JwtTokenProvider {
         return accessExpirationMs;
     }
 
-    // Getter for refreshExpirationMs
     public long getRefreshExpirationMs() {
         return refreshExpirationMs;
     }

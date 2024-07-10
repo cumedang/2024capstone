@@ -47,8 +47,8 @@ public class WebSecurityConfig {
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/sign", "/", "/login", "/css/**", "/js/**", "/img/**", "/exception/**", "/favicon.ico", "parts/header.html","/swagger-ui/index.html","/swagger-ui/**","/v3/api-docs/**").permitAll()
-                                .requestMatchers("/bookreport","/bookreport/delete","/bookreport/update","/bookreport/","booklist").hasRole("USER")
+                                .requestMatchers("/sign", "/", "/login", "/css/**", "/js/**", "/img/**", "/exception/**", "/favicon.ico", "parts/header.html","/swagger-ui/index.html","/swagger-ui/**","/v3/api-docs/**","/mailsend","/mailcheck","/refresh").permitAll()
+                                .requestMatchers("/bookreport","/bookreport/delete","/bookreport/update","/bookreport/","/booklist","/profile","/reportlist","/bookreport/select/","/pointshop/","/pointshop/buy/","poinshop/select/","/selectbook/","/buylist","chat/","/chatlist","/pointshop/buy/").hasRole("USER")
                                 .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling ->
