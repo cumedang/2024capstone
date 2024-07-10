@@ -8,13 +8,12 @@ import InfoBar from "../Chat/InfoBar/InfoBar";
 import Messages from "../Chat/Messages/Messages";
 import TextContainer from "../Chat/TextContainer/TextContainer";
 import Input from "../Chat/Input/Input";
-
 const ENDPOINT = "http://localhost:5000";
 let socket;
 
 const ChatRooms = () => {
   const [chatRooms, setChatRooms] = useState([]);
-  
+
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [users, setUsers] = useState("");
