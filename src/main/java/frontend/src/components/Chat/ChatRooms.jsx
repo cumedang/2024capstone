@@ -9,7 +9,7 @@ import Messages from "../Chat/Messages/Messages";
 import TextContainer from "../Chat/TextContainer/TextContainer";
 import Input from "../Chat/Input/Input";
 
-const ENDPOINT = "http://3.39.223.205:5000/";
+const ENDPOINT = "http://localhost:5000";
 let socket;
 
 const ChatRooms = () => {
