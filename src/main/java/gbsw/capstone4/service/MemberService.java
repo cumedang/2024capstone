@@ -6,16 +6,13 @@ import gbsw.capstone4.repository.BookReportRepository;
 import gbsw.capstone4.repository.SignReposirtory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,33 +34,32 @@ public class MemberService {
 
 
 
-    public Sucessdto loginService(HttpServletResponse response, SignDto signdto) {
-        Sucessdto suceessdto = new Sucessdto();
+    public Successdto loginService(LoginDto signdto) {
+        Successdto suceessdto = new Successdto();
         suceessdto.setSuccess(false);
         System.out.println(signdto.getId());
         if(!findByid(signdto.getId())) {
             Optional<SignDto> pw = signReposirtory.findById(signdto.getId());
             if(BCrypt.checkpw(signdto.getPassword(),String.valueOf(pw.get().getPassword()) )) {
-                Cookie cookie = new Cookie("userid", signdto.getId());
-                cookie.setMaxAge(-1);
-                response.addCookie(cookie);
                 suceessdto.setSuccess(true);
                 return suceessdto;
             }
         }
         return suceessdto;
     }
-    public Sucessdto signService(SignDto signdto) {
-        Sucessdto suceessdto = new Sucessdto();
+    public Successdto signService(SignDto signdto) {
+        Successdto suceessdto = new Successdto();
         suceessdto.setSuccess(false);
+        System.out.println(signdto.getPassword());
         if(findByid(signdto.getId())) {
             if(findByName(signdto.getName())) {
                 String hashedPassword = BCrypt.hashpw(signdto.getPassword(), BCrypt.gensalt());
                 signdto.setPassword(hashedPassword);
+                signdto.setGrade("F");
                 SignDto saveDto = signReposirtory.save(signdto);
                 if(saveDto != null) {
                     suceessdto.setSuccess(true);
-                    entityManager.createNativeQuery("CREATE TABLE " + signdto.getId() + " (id INT AUTO_INCREMENT PRIMARY KEY, likename VARCHAR(255), likebook VARCHAR(255))").executeUpdate();
+                    entityManager.createNativeQuery("CREATE TABLE " + signdto.getId() + " (id INT AUTO_INCREMENT PRIMARY KEY, likename VARCHAR(255), likebook VARCHAR(255),point INT)").executeUpdate();
                     return suceessdto;
                 }else {
                     return suceessdto;
@@ -92,6 +88,11 @@ public class MemberService {
             return true;
         }
         return false;
+    }
+
+    public Optional<SignDto> ProFileService(String id) {
+        Optional<SignDto> byId = signReposirtory.findById(id);
+        return byId;
     }
 
 }
